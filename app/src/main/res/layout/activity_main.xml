@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true"
+    android:padding="16dp">
+
+    <!-- 🔹 TextView de bienvenida -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido"
+        android:textSize="29sp"
+        android:gravity="center"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"
+        android:padding="8dp"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text="Start"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:drawableStart="@drawable/ic_start_act"
+        android:drawablePadding="12dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="24dp"
+        android:minHeight="48dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnOption1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:drawableStart="@drawable/ic_a_act"
+            android:drawablePadding="10dp"
+            android:fontFamily="cursive"
+            android:minHeight="48dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="20dp"
+            android:text="Start"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnOption2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:drawableStart="@drawable/ic_b_act"
+            android:drawablePadding="10dp"
+            android:fontFamily="serif-monospace"
+            android:minHeight="48dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="20dp"
+            android:text="Start"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnOption3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_blue_bright"
+            android:drawableStart="@drawable/ic_c_act"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif-black"
+            android:minHeight="48dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="20dp"
+            android:text="Start"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <!-- 🔹 EditText para nombre -->
+    <EditText
+        android:id="@+id/txtNombre"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:hint="Ingrese nombre:"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/holo_orange_dark"
+        android:textSize="20sp"
+        android:inputType="textPersonName"
+        android:padding="12dp"
+        android:drawableStart="@drawable/ic_nombre_act"
+        android:drawablePadding="8dp"/>
+
+</LinearLayout>
