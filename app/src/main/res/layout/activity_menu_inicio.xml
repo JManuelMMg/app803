@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ing. Juan Manuel Medina Garcia"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="#E45050"
                 android:fontFamily="@font/font_menu"
                 android:layout_marginTop="4dp" />
