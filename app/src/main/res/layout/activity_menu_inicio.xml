@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:background="@drawable/back_menu">
 
-    <!-- HEADER: Título + Logo TESSFP -->
+    <!-- Título + Logo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:paddingEnd="16dp"
         android:background="#17FFFFFF">
 
-        <!-- Columna izquierda: Título e Instructor -->
+        <!-- Título  -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 android:layout_marginTop="4dp" />
         </LinearLayout>
 
-        <!-- Columna derecha: Logo TESSFP -->
+        <!--logo -->
         <LinearLayout
             android:layout_width="130dp"
             android:layout_height="56dp"
@@ -58,7 +58,7 @@
             android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 
-    <!-- GRID DE BOTONES -->
+    <!-- botones -->
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
