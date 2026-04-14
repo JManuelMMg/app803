@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppJuan803">
         <activity
+            android:name=".menu_inicio"
+            android:exported="false" />
+        <activity
             android:name=".Calculadora"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".menu_inicio"
+            android:name=".MiProyecto"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

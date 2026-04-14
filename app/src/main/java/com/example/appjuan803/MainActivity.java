@@ -1,16 +1,12 @@
 package com.example.appjuan803;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,13 +24,10 @@ public class MainActivity extends AppCompatActivity {
         txtNombre = findViewById(R.id.txtNombre);
 
         // Evento btn
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Recibir el texto de la caja y almacenarlo
-                String nombre = txtNombre.getText().toString();
-                imprimirmensaje("Hola " + nombre.toUpperCase());
-            }
+        btnStart.setOnClickListener(v -> {
+            // Recibir el texto de la caja y almacenarlo
+            String nombre = txtNombre.getText().toString();
+            imprimirmensaje("Hola " + nombre.toUpperCase());
         });
     }
 

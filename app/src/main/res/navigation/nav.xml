@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/action_administrar">
+
+    <fragment
+        android:id="@+id/action_administrar"
+        android:name="com.example.appjuan803.AdminFragment"
+        tools:layout="@layout/fragment_admin" />
+
+    <fragment
+        android:id="@+id/action_agenda"
+        android:name="com.example.appjuan803.AgendaFragment"
+        tools:layout="@layout/fragment_agenda" />
+
+</navigation>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_administrar"
+        android:title="Administrar"
+        android:icon="@drawable/icon_administrar" />
+    <item
+        android:id="@+id/action_agenda"
+        android:title="Agenda"
+        android:icon="@drawable/icon_agenda" />
+</menu>

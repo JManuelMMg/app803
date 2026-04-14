@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
 }
-
 android {
     namespace = "com.example.appjuan803"
     compileSdk {
@@ -29,6 +28,10 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -43,4 +46,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    // Navegación
+    implementation("androidx.navigation:navigation-fragment:2.7.6")
+    implementation("androidx.navigation:navigation-ui:2.7.6")
+
+    // Room SQLite
+    implementation("androidx.room:room-runtime:2.7.0")
+    annotationProcessor("androidx.room:room-compiler:2.7.0")
 }
