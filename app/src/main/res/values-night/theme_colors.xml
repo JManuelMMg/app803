@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores temáticos para modo oscuro -->
+    <color name="text_primary">@android:color/primary_text_dark</color>
+    <color name="text_secondary">@android:color/secondary_text_dark</color>
+    <color name="text_hint">@android:color/tertiary_text_dark</color>
+
+    <!-- Fondos temáticos para modo oscuro -->
+    <color name="background_primary">@android:color/background_dark</color>
+    <color name="background_secondary">#1A1A1A</color>
+    <color name="background_accent">#2E2E2E</color>
+
+    <!-- Bordes y separadores para modo oscuro -->
+    <color name="divider_light">#424242</color>
+    <color name="divider_dark">#616161</color>
+
+    <!-- Fondos de secciones para modo oscuro -->
+    <color name="section_background_light">#2A2A2A</color>
+    <color name="section_background_dark">#1A1A1A</color>
+
+    <!-- Fondos de campos especiales para modo oscuro -->
+    <color name="field_highlight_light">#4A4A2A</color>
+    <color name="field_highlight_dark">#333322</color>
+
+    <!-- Colores de superficie para modo oscuro -->
+    <color name="surface_light">#2D2D2D</color>
+    <color name="surface_dark">#1A1A1A</color>
+
+    <!-- Colores de texto en superficies para modo oscuro -->
+    <color name="text_on_surface_light">@android:color/primary_text_dark</color>
+    <color name="text_on_surface_dark">@android:color/primary_text_dark</color>
+
+    <!-- Colores de acento para modo oscuro -->
+    <color name="accent_light">#BB86FC</color>
+    <color name="accent_dark">#BB86FC</color>
+</resources>

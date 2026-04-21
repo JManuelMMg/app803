@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores temáticos compatibles con modo claro y oscuro -->
+    <color name="text_primary">@android:color/primary_text_light</color>
+    <color name="text_secondary">@android:color/secondary_text_light</color>
+    <color name="text_hint">@android:color/tertiary_text_light</color>
+
+    <!-- Fondos temáticos -->
+    <color name="background_primary">@android:color/background_light</color>
+    <color name="background_secondary">#F5F5F5</color>
+    <color name="background_accent">#E8F5E9</color>
+
+    <!-- Bordes y separadores -->
+    <color name="divider_light">#E0E0E0</color>
+    <color name="divider_dark">#BDBDBD</color>
+
+    <!-- Fondos de secciones -->
+    <color name="section_background_light">#F8F9FA</color>
+    <color name="section_background_dark">#2A2A2A</color>
+
+    <!-- Fondos de campos especiales -->
+    <color name="field_highlight_light">#FFF3CD</color>
+    <color name="field_highlight_dark">#4A4A2A</color>
+
+    <!-- Colores de superficie -->
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+
+    <!-- Colores de texto en superficies -->
+    <color name="text_on_surface_light">@android:color/primary_text_light</color>
+    <color name="text_on_surface_dark">@android:color/primary_text_dark</color>
+
+    <!-- Colores de acento -->
+    <color name="accent_light">#1A237E</color>
+    <color name="accent_dark">#BB86FC</color>
+</resources>

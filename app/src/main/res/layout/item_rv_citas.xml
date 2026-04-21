@@ -4,155 +4,200 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    android:background="@color/surface_light">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="16dp">
 
-        <!-- Fila 1: Imagen, Nombre, Editar, Borrar -->
+        <!-- Header Section: Imagen, Nombre, Botones -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="12dp">
 
             <ImageView
                 android:id="@+id/ivCredencial"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/icon_credencial"
-                android:scaleType="centerInside" />
+                android:scaleType="centerInside"
+                android:layout_marginEnd="12dp" />
 
-            <TextView
-                android:id="@+id/tvNomNombre"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:text="Nombre cliente"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/black" />
+                android:orientation="vertical">
 
-            <!-- Botón Editar con icono claro -->
-            <ImageButton
-                android:id="@+id/ibtnEditar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="4dp"
-                android:src="@drawable/icon_editar"
-                android:background="?android:attr/selectableItemBackground"
-                android:scaleType="centerInside"
-                android:contentDescription="Editar" />
+                <TextView
+                    android:id="@+id/tvNomNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre cliente"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="2dp" />
 
-            <!-- Botón Borrar con icono claro -->
-            <ImageButton
-                android:id="@+id/ibtnBorrar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/icon_borrar"
-                android:background="?android:attr/selectableItemBackground"
-                android:scaleType="centerInside"
-                android:contentDescription="Borrar" />
+                <!-- Teléfono en header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/icon_celular"
+                        android:layout_marginEnd="6dp" />
+
+                    <TextView
+                        android:id="@+id/tvTelCliente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Telefono Cliente"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Botones de acción -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ibtnEditar"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/icon_editar"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:scaleType="centerInside"
+                    android:contentDescription="Editar"
+                    android:padding="10dp" />
+
+                <ImageButton
+                    android:id="@+id/ibtnBorrar"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/icon_borrar"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:scaleType="centerInside"
+                    android:contentDescription="Borrar"
+                    android:padding="10dp" />
+            </LinearLayout>
         </LinearLayout>
 
+        <!-- Separator -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#DDDDDD"
-            android:layout_marginBottom="8dp" />
+            android:background="@color/divider_light"
+            android:layout_marginBottom="12dp" />
 
-        <!-- Resto de la información (Teléfono, Hora, Fecha, Asunto) -->
+        <!-- Details Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/section_background_light"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp">
 
-            <!-- Teléfono -->
+            <!-- Fecha y Hora Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@color/surface_light"
+                    android:padding="8dp"
+                    android:layout_marginEnd="4dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_reloj"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvHoraCita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hora"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_on_surface_light" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@color/surface_light"
+                    android:padding="8dp"
+                    android:layout_marginStart="4dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_calendario"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvDiaCita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Día"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_on_surface_light" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Asunto Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="4dp">
+                android:background="@color/surface_light"
+                android:padding="10dp">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/icon_celular" />
-                <TextView
-                    android:id="@+id/tvTelCliente"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Telefono Cliente"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                    android:src="@drawable/icon_asunto"
+                    android:layout_marginEnd="10dp" />
 
-            <!-- Hora y Fecha -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="4dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/icon_reloj" />
-                    <TextView
-                        android:id="@+id/tvHoraCita"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="Hora" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/icon_calendario" />
-                    <TextView
-                        android:id="@+id/tvDiaCita"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="Día" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Asunto -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/icon_asunto" />
                 <TextView
                     android:id="@+id/tvAsuntoCliente"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
                     android:text="Asunto Cliente"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_on_surface_light" />
             </LinearLayout>
 
         </LinearLayout>

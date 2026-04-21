@@ -53,4 +53,10 @@ dependencies {
     // Room SQLite
     implementation("androidx.room:room-runtime:2.7.0")
     annotationProcessor("androidx.room:room-compiler:2.7.0")
+    
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    
+    // Toasty
+    implementation("com.github.GrenderG:Toasty:1.5.2")
 }

@@ -3,23 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF">
+    android:background="@color/background_primary">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
-        <TextView
+        <!-- Header -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AGREGAR CITA"
+            android:orientation="vertical"
             android:gravity="center"
-            android:textColor="#1A237E"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AGREGAR CITA"
+                android:gravity="center"
+                android:textColor="@color/accent_light"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginBottom="8dp" />
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="3dp"
+                android:background="@color/accent_light"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <!-- Información Personal Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INFORMACIÓN PERSONAL"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp" />
 
         <!-- Nombre -->
         <LinearLayout
@@ -27,14 +53,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="16dp"
+            android:background="@color/section_background_light"
+            android:padding="12dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/icon_credencial"
                 android:layout_marginEnd="12dp"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -46,9 +74,9 @@
                     android:id="@+id/et_nombre_cliente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="12dp"
                     android:textSize="14sp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/text_primary" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -58,14 +86,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="20dp"
+            android:background="@color/section_background_light"
+            android:padding="12dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/icon_celular"
                 android:layout_marginEnd="12dp"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -78,12 +108,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
-                    android:padding="10dp"
+                    android:padding="12dp"
                     android:textSize="14sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:maxLength="10" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+
+        <!-- Separator -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_light"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Detalles de la Cita Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DETALLES DE LA CITA"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp" />
 
         <!-- Asunto -->
         <LinearLayout
@@ -91,14 +139,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="16dp"
+            android:background="@color/section_background_light"
+            android:padding="12dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/icon_asunto"
                 android:layout_marginEnd="12dp"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -111,56 +161,96 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:padding="10dp"
+                    android:padding="12dp"
                     android:textSize="14sp"
-                    android:textColor="@color/black"
-                    android:maxLines="2" />
+                    android:textColor="@color/text_primary"
+                    android:maxLines="3"
+                    android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <!-- Hora -->
+        <!-- Fecha y Hora Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            android:background="#F5F5F5"
-            android:layout_marginBottom="12dp">
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Seleccionar Hora:"
-                android:textColor="#333333"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:text="FECHA Y HORA"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="4dp" />
 
-            <ImageButton
-                android:id="@+id/ibtn_hora"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/icon_reloj"
-                android:background="?android:attr/selectableItemBackground"
-                android:scaleType="centerInside" />
+            <!-- Hora -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:background="@color/field_highlight_light"
+                android:padding="12dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
+                    android:hint="* Hora de cita">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_hora_cita"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="time"
+                        android:padding="12dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary"
+                        android:editable="false"
+                        android:hint="Seleccionar hora" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/ibtn_hora"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/icon_reloj"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:scaleType="centerInside"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <!-- Día -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/field_highlight_light"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Día de la semana:"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <Spinner
+                    android:id="@+id/spiDias"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/spinner_background"
+                    android:padding="8dp" />
+            </LinearLayout>
         </LinearLayout>
-
-        <!-- Día -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Día:"
-            android:textColor="#333333"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
-
-        <Spinner
-            android:id="@+id/spiDias"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/spinner_background" />
 
     </LinearLayout>
 </ScrollView>

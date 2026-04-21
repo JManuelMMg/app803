@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5"
+    android:background="@color/background_primary"
     tools:context=".AdminFragment">
 
     <!-- Barra de búsqueda -->
@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"
+        android:background="@color/surface_light">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/svCliente"
@@ -22,7 +23,8 @@
             android:layout_height="wrap_content"
             app:iconifiedByDefault="false"
             app:queryHint="Buscar cliente..."
-            app:queryBackground="@android:color/transparent" />
+            app:queryBackground="@android:color/transparent"
+            android:background="@color/surface_light" />
 
     </androidx.cardview.widget.CardView>
 
