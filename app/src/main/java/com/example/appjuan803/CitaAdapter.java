@@ -9,21 +9,47 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.appjuan803.models.Cita;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder> {
 
     private List<Cita> listaCitas;
-    private OnCitaClickListener listener;
+    private List<Cita> listaFiltrada;
+    private OnEditClickListener onEditListener;
+    private OnDeleteClickListener onDeleteListener;
 
+    // Interfaz para eventos de editar
+    public interface OnEditClickListener {
+        void onEditClick(Cita cita);
+    }
+
+    // Interfaz para eventos de eliminar
+    public interface OnDeleteClickListener {
+        void onDeleteClick(Cita cita);
+    }
+
+    // Interfaz heredada (compatible con código anterior)
     public interface OnCitaClickListener {
         void onEditClick(Cita cita);
         void onDeleteClick(Cita cita);
     }
 
+    // Constructor con dos interfaces
+    public CitaAdapter(List<Cita> listaCitas, OnEditClickListener onEditListener, 
+                       OnDeleteClickListener onDeleteListener) {
+        this.listaCitas = new ArrayList<>(listaCitas);
+        this.listaFiltrada = new ArrayList<>(listaCitas);
+        this.onEditListener = onEditListener;
+        this.onDeleteListener = onDeleteListener;
+    }
+
+    // Constructor original (mantener compatibilidad)
     public CitaAdapter(List<Cita> listaCitas, OnCitaClickListener listener) {
-        this.listaCitas = listaCitas;
-        this.listener = listener;
+        this.listaCitas = new ArrayList<>(listaCitas);
+        this.listaFiltrada = new ArrayList<>(listaCitas);
+        this.onEditListener = listener::onEditClick;
+        this.onDeleteListener = listener::onDeleteClick;
     }
 
     @NonNull
@@ -35,24 +61,56 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CitaViewHolder holder, int position) {
-        Cita cita = listaCitas.get(position);
+        Cita cita = listaFiltrada.get(position);
         holder.tvNombre.setText(cita.nomCliente);
         holder.tvTelefono.setText(cita.telCliente);
         holder.tvHora.setText(cita.horaCita);
         holder.tvDia.setText(cita.diaCita);
         holder.tvAsunto.setText(cita.asuntoCita);
 
-        holder.btnEditar.setOnClickListener(v -> listener.onEditClick(cita));
-        holder.btnBorrar.setOnClickListener(v -> listener.onDeleteClick(cita));
+        holder.btnEditar.setOnClickListener(v -> {
+            if (onEditListener != null) {
+                onEditListener.onEditClick(cita);
+            }
+        });
+
+        holder.btnBorrar.setOnClickListener(v -> {
+            if (onDeleteListener != null) {
+                onDeleteListener.onDeleteClick(cita);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return listaCitas.size();
+        return listaFiltrada.size();
+    }
+
+    /**
+     * Filtra las citas según el texto ingresado
+     */
+    public void filtrarCliente(String texto) {
+        listaFiltrada.clear();
+        
+        if (texto == null || texto.isEmpty()) {
+            listaFiltrada.addAll(listaCitas);
+        } else {
+            String filtroLower = texto.toLowerCase();
+            for (Cita cita : listaCitas) {
+                if (cita.nomCliente.toLowerCase().contains(filtroLower) ||
+                    cita.telCliente.toLowerCase().contains(filtroLower) ||
+                    cita.asuntoCita.toLowerCase().contains(filtroLower)) {
+                    listaFiltrada.add(cita);
+                }
+            }
+        }
+        
+        notifyDataSetChanged();
     }
 
     public void setCitas(List<Cita> nuevasCitas) {
-        this.listaCitas = nuevasCitas;
+        this.listaCitas = new ArrayList<>(nuevasCitas);
+        this.listaFiltrada = new ArrayList<>(nuevasCitas);
         notifyDataSetChanged();
     }
 
@@ -72,3 +130,4 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
         }
     }
 }
+

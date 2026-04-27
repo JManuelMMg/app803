@@ -1,14 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_primary"
     tools:context=".AgendaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:scrollbars="horizontal"
+        android:fadeScrollbars="false">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!-- LUNES -->
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lunes"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:gravity="center"
+                    android:paddingBottom="12dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCitasLunes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_rv_citas_dia" />
+            </LinearLayout>
+
+            <!-- MARTES -->
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Martes"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:gravity="center"
+                    android:paddingBottom="12dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCitasMartes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_rv_citas_dia" />
+            </LinearLayout>
+
+            <!-- MIÉRCOLES -->
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Miércoles"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:gravity="center"
+                    android:paddingBottom="12dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCitasMiercoles"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_rv_citas_dia" />
+            </LinearLayout>
+
+            <!-- JUEVES -->
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jueves"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:gravity="center"
+                    android:paddingBottom="12dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCitasJueves"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_rv_citas_dia" />
+            </LinearLayout>
+
+            <!-- VIERNES -->
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Viernes"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:gravity="center"
+                    android:paddingBottom="12dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCitasViernes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_rv_citas_dia" />
+            </LinearLayout>
+
+            <!-- SÁBADO -->
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sábado"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:gravity="center"
+                    android:paddingBottom="12dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCitasSabado"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_rv_citas_dia" />
+            </LinearLayout>
+
+            <!-- DOMINGO -->
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Domingo"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:gravity="center"
+                    android:paddingBottom="12dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCitasDomingo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_rv_citas_dia" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

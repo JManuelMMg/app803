@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import com.example.appjuan803.database.AppDatabase;
 import com.example.appjuan803.models.Cita;
 import com.example.appjuan803.utils.Utils;
@@ -29,15 +29,17 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
-public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickListener {
+public class AdminFragment extends Fragment implements 
+        CitaAdapter.OnEditClickListener, 
+        CitaAdapter.OnDeleteClickListener {
 
     private RecyclerView rvCitas;
+    private SearchView svCliente;
     private CitaAdapter adapter;
     private AppDatabase database;
     private List<Cita> citaList = new ArrayList<>();
     private String horaSeleccionada = "";
-    private Cita citaActual;
-    private boolean esValido = false;
+    private boolean isEditando = false;
 
     public AdminFragment() {}
 
@@ -56,8 +58,9 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin, container, false);
 
-        // Inicializar vista
+        // Inicializar vistas
         rvCitas = view.findViewById(R.id.rvCitas);
+        svCliente = view.findViewById(R.id.svCliente);
 
         // Obtener la base de datos
         database = Utils.getDatabase(getContext());
@@ -67,6 +70,9 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
 
         // Cargar citas desde la BD
         obtenerCitas();
+
+        // Configurar SearchView
+        configrarSearchView();
 
         return view;
     }
@@ -80,7 +86,8 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_agregar) {
-            lanzarAlertDialogCita();
+            isEditando = false;
+            lanzarAlertDialogCita(null);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -91,7 +98,7 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
      */
     private void setupRecyclerView() {
         rvCitas.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new CitaAdapter(citaList, this);
+        adapter = new CitaAdapter(citaList, this, this);
         rvCitas.setAdapter(adapter);
     }
 
@@ -110,15 +117,34 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
                 super.onPostExecute(citas);
                 citaList.clear();
                 citaList.addAll(citas);
-                adapter.notifyDataSetChanged();
+                adapter.setCitas(citaList);
             }
         }.execute();
     }
 
     /**
+     * Configura el SearchView para filtrar citas
+     */
+    private void configrarSearchView() {
+        svCliente.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.filtrarCliente(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filtrarCliente(newText);
+                return true;
+            }
+        });
+    }
+
+    /**
      * Lanza el AlertDialog personalizado para agregar/actualizar cita
      */
-    private void lanzarAlertDialogCita() {
+    private void lanzarAlertDialogCita(Cita citaParaEditar) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View dialogView = getLayoutInflater().inflate(R.layout.alert_dialog_add_update_cita, null);
         builder.setView(dialogView);
@@ -137,6 +163,24 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
                 android.R.layout.simple_spinner_dropdown_item, dias);
         spiDias.setAdapter(adapterDias);
 
+        // Si se está editando, rellenar campos
+        if (isEditando && citaParaEditar != null) {
+            etNombreCliente.setText(citaParaEditar.nomCliente);
+            etTelefonoCliente.setText(citaParaEditar.telCliente);
+            etAsuntoCita.setText(citaParaEditar.asuntoCita);
+            etHora.setText(citaParaEditar.horaCita);
+            
+            // Seleccionar día en el spinner
+            int posicion = 0;
+            for (int i = 0; i < dias.length; i++) {
+                if (dias[i].equals(citaParaEditar.diaCita)) {
+                    posicion = i;
+                    break;
+                }
+            }
+            spiDias.setSelection(posicion);
+        }
+
         // Configurar click del botón hora
         ibtnHora.setOnClickListener(v -> obtenerHora(etHora));
 
@@ -145,31 +189,44 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
                 .setPositiveButton("Aceptar", (dialogInterface, which) -> {
                     // Validar campos
                     if (validarCampos(etNombreCliente, etTelefonoCliente, etAsuntoCita, etHora)) {
-                        // Crear cita
-                        citaActual = new Cita();
-                        citaActual.idCita = UUID.randomUUID().toString();
-                        citaActual.nomCliente = etNombreCliente.getText().toString().trim();
-                        citaActual.telCliente = etTelefonoCliente.getText().toString().trim();
-                        citaActual.asuntoCita = etAsuntoCita.getText().toString().trim();
-                        citaActual.horaCita = etHora.getText().toString();
-                        citaActual.diaCita = (String) spiDias.getSelectedItem();
-
-                        // Agregar a BD
-                        agregarCita(citaActual);
+                        // Crear o actualizar cita
+                        if (isEditando && citaParaEditar != null) {
+                            citaParaEditar.nomCliente = etNombreCliente.getText().toString().trim();
+                            citaParaEditar.telCliente = etTelefonoCliente.getText().toString().trim();
+                            citaParaEditar.asuntoCita = etAsuntoCita.getText().toString().trim();
+                            citaParaEditar.horaCita = etHora.getText().toString();
+                            citaParaEditar.diaCita = (String) spiDias.getSelectedItem();
+                            
+                            actualizarCita(citaParaEditar);
+                            Toasty.success(getContext(), "Cita actualizada correctamente",
+                                    Toasty.LENGTH_SHORT).show();
+                        } else {
+                            Cita citaNueva = new Cita();
+                            citaNueva.idCita = UUID.randomUUID().toString();
+                            citaNueva.nomCliente = etNombreCliente.getText().toString().trim();
+                            citaNueva.telCliente = etTelefonoCliente.getText().toString().trim();
+                            citaNueva.asuntoCita = etAsuntoCita.getText().toString().trim();
+                            citaNueva.horaCita = etHora.getText().toString();
+                            citaNueva.diaCita = (String) spiDias.getSelectedItem();
+                            
+                            agregarCita(citaNueva);
+                            Toasty.success(getContext(), "Cita agregada correctamente",
+                                    Toasty.LENGTH_SHORT).show();
+                        }
 
                         // Actualizar RecyclerView
                         obtenerCitas();
 
                         // Cerrar diálogo
                         dialogInterface.dismiss();
-
-                        // Mostrar mensaje de éxito
-                        Toasty.success(getContext(), "Cita agregada correctamente",
-                                Toasty.LENGTH_SHORT).show();
+                        
+                        // Reiniciar flag de edición
+                        isEditando = false;
                     }
                 })
                 .setNegativeButton("Cancelar", (dialogInterface, which) -> {
                     dialogInterface.dismiss();
+                    isEditando = false;
                 })
                 .create();
 
@@ -186,7 +243,6 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
                     String hora = String.format("%02d:%02d", hourOfDay, minute);
                     etHora.setText(hora);
                     horaSeleccionada = hora;
-                    Toasty.info(getContext(), "Hora: " + hora, Toasty.LENGTH_SHORT).show();
                 },
                 calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
@@ -254,14 +310,6 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
                 database.citaDao().actualizarCita(citas[0]);
                 return null;
             }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                obtenerCitas();
-                Toasty.success(getContext(), "Cita actualizada correctamente",
-                        Toasty.LENGTH_SHORT).show();
-            }
         }.execute(cita);
     }
 
@@ -288,8 +336,8 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
 
     @Override
     public void onEditClick(Cita cita) {
-        Toasty.info(getContext(), "Editar: " + cita.nomCliente, Toasty.LENGTH_SHORT).show();
-        // TODO: Implementar edición
+        isEditando = true;
+        lanzarAlertDialogCita(cita);
     }
 
     @Override
@@ -306,3 +354,4 @@ public class AdminFragment extends Fragment implements CitaAdapter.OnCitaClickLi
                 .show();
     }
 }
+
