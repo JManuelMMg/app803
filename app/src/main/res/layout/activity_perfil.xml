@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/m2"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_datos"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PERFIL DEL USUARIO"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:fontFamily="@font/fuente_titulo"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre: Jared Lopez Lopez"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carrera: Ingeniería Informática"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grupo: 803"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correo: jaredlopez076@gmail.com"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-light"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRegresarPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:text="REGRESAR AL MENÚ"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/black"
+        app:cornerRadius="12dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mario2"
+    android:keepScreenOn="true">
+
+    <!-- CONECTAR -->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONECTAR"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <!-- ESTADO -->
+
+    <TextView
+        android:id="@+id/statusBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="● DESCONECTADO"
+        android:textColor="#FF4444"
+        android:textSize="9sp"
+        android:fontFamily="monospace"/>
+
+    <!-- MODO MANUAL -->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnManual"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:text="MODO MANUAL"
+        android:textSize="14sp"
+        android:layout_below="@id/statusBt"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="2dp"
+        app:cornerRadius="20dp"/>
+
+    <!-- LED -->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLed"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:text="💡"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:backgroundTint="#AA8800"
+        app:cornerRadius="35dp"
+        app:elevation="8dp"
+        android:layout_marginStart="10dp"/>
+
+    <!-- ── PANEL IZQUIERDO: ADELANTE / ATRÁS ── -->
+    <LinearLayout
+        android:id="@+id/leftPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF"
+            android:layout_width="160dp"
+            android:layout_height="140dp"
+            android:text="▲"
+            android:textSize="40sp"
+            android:textColor="#4DAAFF"
+            android:backgroundTint="#1A1A1A"
+            app:cornerRadius="65dp"
+            app:elevation="10dp"
+            app:strokeColor="#333333"
+            app:strokeWidth="3dp"
+            android:layout_marginBottom="6dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnB"
+            android:layout_width="160dp"
+            android:layout_height="140dp"
+            android:text="▼"
+            android:textSize="40sp"
+            android:textColor="#4DAAFF"
+            android:backgroundTint="#1A1A1A"
+            app:cornerRadius="65dp"
+            app:elevation="10dp"
+            app:strokeColor="#333333"
+            app:strokeWidth="3dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+    </LinearLayout>
+
+    <!-- ── PANEL DERECHO: IZQUIERDA / DERECHA ── -->
+    <LinearLayout
+        android:id="@+id/rightPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:layout_marginEnd="10dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnL"
+            android:layout_width="170dp"
+            android:layout_height="150dp"
+            android:text="◀"
+            android:textSize="40sp"
+            android:textColor="#4DAAFF"
+            android:backgroundTint="#1A1A1A"
+            app:cornerRadius="65dp"
+            app:elevation="10dp"
+            app:strokeColor="#333333"
+            app:strokeWidth="3dp"
+            android:layout_marginEnd="6dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnR"
+            android:layout_width="170dp"
+            android:layout_height="150dp"
+            android:text="▶"
+            android:textSize="40sp"
+            android:textColor="#4DAAFF"
+            android:backgroundTint="#1A1A1A"
+            app:cornerRadius="65dp"
+            app:elevation="10dp"
+            app:strokeColor="#333333"
+            app:strokeWidth="3dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+    </LinearLayout>
+
+</RelativeLayout>

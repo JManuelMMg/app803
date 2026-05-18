@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#06101C">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/btnRegresar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Regresar"
+            android:textColor="#A7B0BC"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Puerta principal"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="38sp"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:id="@+id/txtEstadoPuerta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado: Cerrada"
+            android:textColor="#F59E0B"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp" />
+
+        <FrameLayout
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_door_circle">
+
+            <ImageView
+                android:id="@+id/iconPuertaGrande"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_gravity="center"
+                android:src="@drawable/puerta"
+                android:scaleType="centerCrop" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnAbrirPuerta"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Abrir puerta"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#06101C"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_power_green" />
+
+        <Button
+            android:id="@+id/btnCerrarPuerta"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Cerrar puerta"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_power_off" />
+
+        <LinearLayout
+            android:id="@+id/txtSensorInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_sensor_chip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📡"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/txtSensorTexto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sensor de proximidad activo"
+                android:textColor="#69F06D"
+                android:textSize="18sp"
+                android:layout_marginStart="12dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
