@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Duración por defecto del splash en milisegundos (ajustable entre 1200 y 2000) -->
+    <integer name="splash_duration_ms">1400</integer>
+</resources>
+

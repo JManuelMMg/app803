@@ -67,9 +67,9 @@
         android:padding="20dp"
         android:alignmentMode="alignMargins">
 
-        <!-- Tarjeta 1: Saldo -->
+        <!-- Tarjeta 1: ubicacion -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/btn_saldo"
+            android:id="@+id/btn_ubicacion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -91,12 +91,13 @@
                 <ImageView
                     android:layout_width="81dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/ic_saldo" />
+                    android:src="@drawable/mapa" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saldo"
+                    android:textAlignment="center"
+                    android:text="Ubicación"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
@@ -105,9 +106,9 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Tarjeta 2: Gastos -->
+        <!-- Tarjeta 2: camara -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/btn_gastos"
+            android:id="@+id/btn_camara"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -129,12 +130,13 @@
                 <ImageView
                     android:layout_width="67dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/ic_gastos" />
+                    android:src="@drawable/camara" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gastos"
+                    android:textAlignment="center"
+                    android:text="Camara"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
@@ -143,9 +145,9 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Tarjeta 3: Perfil -->
+        <!-- Tarjeta 3: Agenda -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/btn_perfil"
+            android:id="@+id/btn_agenda"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -167,12 +169,13 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:src="@drawable/ic_perfil" />
+                    android:src="@drawable/agenda" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Perfil"
+                    android:textAlignment="center"
+                    android:text="Agenda"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
@@ -180,10 +183,9 @@
                     android:layout_marginTop="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-        <!-- Tarjeta 4: Reportar -->
+        <!-- Tarjeta 5: calculadora -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/btn_reportar"
+            android:id="@+id/btn_calculadora"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -205,12 +207,13 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:src="@drawable/ic_reporte" />
+                    android:src="@drawable/calculadora" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reportar"
+                    android:textAlignment="center"
+                    android:text="Claculadora"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
@@ -219,9 +222,9 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Tarjeta 5: Buscar -->
+        <!-- Tarjeta 4: reproductor -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/btn_buscar"
+            android:id="@+id/btn_reproductor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -243,12 +246,13 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:src="@drawable/ic_buscar" />
+                    android:src="@drawable/jugar" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Buscar"
+                    android:textAlignment="center"
+                    android:text="Reproductor"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
@@ -257,7 +261,83 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Tarjeta 6: Exit -->
+        <!-- Tarjeta 5: robot -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_robot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/robot" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Robot"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:fontFamily="@font/font_menu"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Tarjeta 6: casa -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_ccasa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/controlcasa" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Control de hogar"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/font_menu"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- Tarjeta 6: exit -->
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_exit"
             android:layout_width="0dp"
@@ -281,7 +361,7 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:src="@drawable/ic_exit" />
+                    android:src="@drawable/cerrar" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -289,7 +369,7 @@
                     android:text="Exit"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="#E74C3C"
+                    android:textColor="#8F0D00"
                     android:fontFamily="@font/font_menu"
                     android:layout_marginTop="8dp" />
             </LinearLayout>

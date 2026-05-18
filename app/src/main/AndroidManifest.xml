@@ -2,7 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permisos de ubicación para la actividad de mapas -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Permiso de internet para Google Maps -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Permisos de cámara -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Permiso de grabación de audio -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Permiso de acceso a almacenamiento para guardar fotos y videos -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -26,15 +41,55 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <!-- SplashActivity como entrypoint -->
         <activity
-            android:name=".MiProyecto"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MiProyecto"
+            android:exported="true" />
+
+        <activity
+            android:name=".CasaInteligenteActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ReproductorMusicaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RobotMenuActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".UbicacionActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".CamaraActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RobotControlActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".PuertaActivity"
+            android:exported="false" />
+
+        <!-- Google Maps API Key - Necesario para que funcione el mapa -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAFuPyOGkjg7a_Ei0E7Vn1DJiEfoxiuoCQ" />
     </application>
 
 </manifest>

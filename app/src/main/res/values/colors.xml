@@ -18,4 +18,10 @@
     <color name="md_red_900">#B71C1C</color>
     <color name="md_blue_500">#2196F3</color>
     <color name="md_blue_50">#E3F2FD</color>
+    <!-- Agrega estas entradas al final de app/src/main/res/values/colors.xml -->
+    <color name="pink_dark">#2D0526</color>
+    <color name="pink_text">#F8BBD0</color>
+    <color name="pink_border">#33000000</color>
+    <color name="pink_muted">#F48FB1</color>
+    <color name="pink_accent">#FF4081</color>
 </resources>

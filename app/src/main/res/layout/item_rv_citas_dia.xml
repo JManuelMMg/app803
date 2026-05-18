@@ -72,7 +72,7 @@
                     android:layout_height="18dp"
                     android:src="@drawable/icon_celular"
                     android:layout_marginEnd="8dp"
-                    android:tint="@color/text_secondary" />
+                    app:tint="@color/text_secondary" />
 
                 <TextView
                     android:id="@+id/tvTelefono"
@@ -95,7 +95,7 @@
                     android:layout_height="18dp"
                     android:src="@drawable/icon_asunto"
                     android:layout_marginEnd="8dp"
-                    android:tint="@color/text_secondary" />
+                    app:tint="@color/text_secondary" />
 
                 <TextView
                     android:id="@+id/tvMotivo"

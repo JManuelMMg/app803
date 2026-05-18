@@ -13,4 +13,10 @@
         <item>Sábado</item>
         <item>Domingo</item>
     </string-array>
+
+    <!-- Descripción accesible para el logo del splash -->
+    <string name="splash_logo_desc">Logotipo de AppJuan803</string>
+    <string name="gallery_preview">Galería</string>
+    <string name="back">Atrás</string>
+    <string name="captured_image">Imagen capturada</string>
 </resources>

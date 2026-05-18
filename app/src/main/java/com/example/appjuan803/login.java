@@ -1,6 +1,7 @@
 package com.example.appjuan803;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,8 +51,12 @@ public class login extends AppCompatActivity {
                         imprimirmensaje("Bienvenido " + user + "!!");
 
                         //cerrar la actividad y abrirr el siguiente
-                        Intent intent=new Intent(login.this, MainActivity.class);
-                        startActivity(intent);
+                        // Guardar sesión simple
+                        SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+                        prefs.edit().putBoolean("logged_in", true).apply();
+
+                        Intent intent=new Intent(login.this, menu_inicio.class);
+                         startActivity(intent);
 
                     } else {
                         imprimirmensaje("Datos Incorrectos!!!");
