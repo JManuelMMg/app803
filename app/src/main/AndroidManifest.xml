@@ -15,6 +15,14 @@
     <!-- Permiso de acceso a almacenamiento para guardar fotos y videos -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Permiso para vibración (usado en feedback háptico) -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Permiso para autenticación biométrica -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <!-- Features opcionales -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
 
     <application
         android:name=".App"

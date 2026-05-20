@@ -18,10 +18,22 @@
     <color name="md_red_900">#B71C1C</color>
     <color name="md_blue_500">#2196F3</color>
     <color name="md_blue_50">#E3F2FD</color>
-    <!-- Agrega estas entradas al final de app/src/main/res/values/colors.xml -->
-    <color name="pink_dark">#2D0526</color>
-    <color name="pink_text">#F8BBD0</color>
-    <color name="pink_border">#33000000</color>
-    <color name="pink_muted">#F48FB1</color>
+    <!-- Colores vívidos para login y splash -->
+    <color name="vivid_teal">#00C2A8</color>
+    <color name="vivid_teal_dark">#00A891</color>
+    <color name="vivid_purple">#7C4DFF</color>
+    <color name="vivid_orange">#FF6D00</color>
+    <color name="vivid_yellow">#FFEA00</color>
+    <color name="vivid_pink">#FF4081</color>
+    <!-- Utilitarios para campos y overlays -->
+    <color name="login_overlay">#4D000000</color>
+    <color name="card_bg_light">#FFFFFFFF</color>
+    <color name="field_bg">#FFF7FFFB</color>
+    <color name="divider_accent">#FF6D00</color>
+    <!-- Colores de rosa/pink para reproductor y otras vistas -->
+    <color name="pink_dark">#C01C70</color>
+    <color name="pink_text">#FFB6D9</color>
+    <color name="pink_border">#E75480</color>
+    <color name="pink_muted">#D4949F</color>
     <color name="pink_accent">#FF4081</color>
 </resources>

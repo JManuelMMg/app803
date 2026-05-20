@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <!-- Un degradado radial suave para la onda -->
+    <gradient
+        android:type="radial"
+        android:useLevel="false"
+        android:centerColor="#40FFFFFF"
+        android:endColor="#00FFFFFF"
+        android:gradientRadius="50%" />
+</shape>
+

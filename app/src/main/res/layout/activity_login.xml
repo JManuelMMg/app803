@@ -1,109 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/wallper_apk"
     android:fitsSystemWindows="true"
     tools:context=".login">
 
-
-    <TextView
+    <!-- Overlay Semi-transparente -->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/font_login"
-        android:gravity="center"
-        android:text="INICIO"
-        android:textColor="@color/black"
-        android:textSize="40sp" />
+        android:layout_height="match_parent"
+        android:background="@color/login_overlay"
+        android:elevation="1dp" />
 
-
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/login_usuario" />
-
-    <com.google.android.material.textfield.TextInputLayout
+    <!-- ScrollView Principal -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Usuario"
-        android:fontFamily="@font/font_login">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtUsuario"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:gravity="center"
-            android:textSize="25sp"
-            android:inputType="text"
-            android:fontFamily="@font/font_login"
-            android:drawableStart="@drawable/ic_ing_act"
-            android:drawablePadding="8dp"/>
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Espaciador Superior -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
 
-    <!-- Campo Contraseña con toggle -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Contraseña"
-        android:fontFamily="@font/font_login"
-        app:endIconMode="password_toggle"
-        app:endIconTint="@color/black">
+            <!-- Card Principal Transparente -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="12dp"
+                app:cardBackgroundColor="@color/card_bg_light"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:inputType="textPassword"
-            android:fontFamily="@font/font_login"
-            android:drawableStart="@drawable/ic_reg_act"
-            android:drawablePadding="8dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="32dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+                    <!-- Título Premium -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="INICIO SEGURO"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/vivid_purple"
+                        android:fontFamily="@font/font_login"
+                        android:gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:letterSpacing="0.05" />
 
-    <!-- Botones en una línea -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="30dp">
+                    <!-- Subtítulo -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Acceso a tu Hogar Inteligente"
+                        android:textSize="13sp"
+                        android:textColor="@color/vivid_teal_dark"
+                        android:fontFamily="@font/font_login"
+                        android:gravity="center"
+                        android:layout_marginBottom="28dp"
+                        android:letterSpacing="0.02" />
 
-        <Button
-            android:id="@+id/Ingresar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ingresar"
-            android:textColor="@color/black"
-            android:fontFamily="@font/font_login"
-            android:drawableStart="@drawable/ic_ing_act"
-            android:drawablePadding="8dp"
-            android:backgroundTint="@color/material_on_primary_disabled"
-            android:layout_marginEnd="10dp"/>
+                    <!-- Logo Card -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="28dp"
+                        app:cardCornerRadius="50dp"
+                        app:cardElevation="6dp"
+                        app:cardBackgroundColor="@color/white">
 
-        <Button
-            android:id="@+id/Cancelar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancelar"
-            android:textColor="@color/black"
-            android:fontFamily="@font/font_login"
-            android:drawableStart="@drawable/ic_reg_act"
-            android:drawablePadding="8dp"
-            android:backgroundTint="@color/material_on_primary_disabled"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:background="@drawable/login_header_gradient">
 
-    </LinearLayout>
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/login_usuario"
+                                android:scaleType="fitCenter" />
 
-</LinearLayout>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="3dp"
+                        android:layout_gravity="center"
+                        android:background="@color/divider_accent"
+                        android:layout_marginBottom="28dp" />
+
+                    <!-- Campo Usuario Mejorado -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Usuario"
+                        android:fontFamily="@font/font_login"
+                        android:layout_marginBottom="16dp"
+                        app:hintTextColor="@color/vivid_teal"
+                        app:boxBackgroundMode="outline"
+                        app:boxStrokeColor="@color/vivid_teal_dark"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:boxStrokeWidth="1dp"
+                        app:boxCornerRadiusTopStart="16dp"
+                        app:boxCornerRadiusTopEnd="16dp"
+                        app:boxCornerRadiusBottomStart="16dp"
+                        app:boxCornerRadiusBottomEnd="16dp"
+                        app:startIconDrawable="@drawable/ic_ing_act"
+                        app:startIconTint="@color/vivid_teal"
+                        app:boxBackgroundColor="@color/field_bg">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtUsuario"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:gravity="center_vertical"
+                            android:textSize="16sp"
+                            android:inputType="text"
+                            android:fontFamily="@font/font_login"
+                            android:textColor="@color/vivid_teal_dark"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Campo Contraseña Mejorado -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Contraseña"
+                        android:fontFamily="@font/font_login"
+                        android:layout_marginBottom="24dp"
+                        app:hintTextColor="@color/vivid_teal"
+                        app:endIconMode="password_toggle"
+                        app:endIconTint="@color/vivid_teal"
+                        app:boxBackgroundMode="outline"
+                        app:boxStrokeColor="@color/vivid_teal_dark"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:boxStrokeWidth="1dp"
+                        app:boxCornerRadiusTopStart="16dp"
+                        app:boxCornerRadiusTopEnd="16dp"
+                        app:boxCornerRadiusBottomStart="16dp"
+                        app:boxCornerRadiusBottomEnd="16dp"
+                        app:startIconDrawable="@drawable/ic_reg_act"
+                        app:startIconTint="@color/vivid_teal"
+                        app:boxBackgroundColor="@color/field_bg">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:gravity="center_vertical"
+                            android:textSize="16sp"
+                            android:inputType="textPassword"
+                            android:fontFamily="@font/font_login"
+                                android:textColor="@color/vivid_teal_dark"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Botón Ingresar Principal -->
+                    <Button
+                        android:id="@+id/Ingresar"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="Ingresar"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font_login"
+                        android:background="@drawable/button_login_ripple"
+                        android:layout_marginBottom="12dp"
+                        android:elevation="6dp"
+                        android:letterSpacing="0.03"
+                        android:stateListAnimator="@null" />
+
+                    <!-- Botón Huella Digital -->
+                    <Button
+                        android:id="@+id/btnBiometricLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="🔐  Huella Digital"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font_login"
+                        android:background="@drawable/button_biometric_ripple"
+                        android:layout_marginBottom="12dp"
+                        android:elevation="6dp"
+                        android:letterSpacing="0.03"
+                        android:gravity="center"
+                        android:stateListAnimator="@null" />
+
+                    <!-- Botón Cancelar -->
+                    <Button
+                        android:id="@+id/Cancelar"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="Cancelar"
+                        android:textColor="@color/vivid_teal_dark"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/font_login"
+                        android:background="@drawable/button_cancel_ripple"
+                        android:elevation="3dp"
+                        android:letterSpacing="0.03"
+                        android:stateListAnimator="@null" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Espaciador Inferior -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

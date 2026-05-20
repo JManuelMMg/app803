@@ -63,6 +63,7 @@ dependencies {
     // Jetpack Compose
     val composeBom = platform("androidx.compose:compose-bom:2024.01.00")
     implementation(composeBom)
+    implementation("androidx.biometric:biometric:1.1.0")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -116,7 +117,10 @@ dependencies {
     
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
-    
+
+    // ExoPlayer (opcional) - comentado para evitar resolución en entornos sin acceso a repositorios.
+    // Si quieres usar ExoPlayer, descomenta la siguiente línea y sincroniza Gradle:
+    // implementation("com.google.android.exoplayer:exoplayer:2.20.0")
     // Toasty
     implementation("com.github.GrenderG:Toasty:1.5.2")
 
