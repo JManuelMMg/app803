@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
+import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +14,13 @@ import androidx.cardview.widget.CardView;
 
 import com.example.appjuan803.CamaraActivity;
 import com.example.appjuan803.UbicacionActivity;
+import com.bumptech.glide.Glide;
 
 public class menu_inicio extends AppCompatActivity {
 
     private static final String TAG = "MenuInicio";
     private CardView btn_calculadora, btn_agenda, btn_ubicacion, btn_camara,
-            btn_reproductor, btn_robot, btn_ccasa, btn_exit;
+            btn_reproductor, btn_robot, btn_ccasa, btn_exit, btn_graficas;
 
     private Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -69,6 +71,34 @@ public class menu_inicio extends AppCompatActivity {
         btn_robot       = findViewById(R.id.btn_robot);
         btn_ccasa       = findViewById(R.id.btn_ccasa);
         btn_exit        = findViewById(R.id.btn_exit);
+        // Botón para abrir la actividad de gráficas
+        btn_graficas    = findViewById(R.id.graficas);
+
+        // Referencias a ImageViews de los iconos para animar GIFs si aplican
+        ImageView ivUbicacion   = findViewById(R.id.iv_ubicacion);
+        ImageView ivCamara      = findViewById(R.id.iv_camara);
+        ImageView ivAgenda      = findViewById(R.id.iv_agenda);
+        ImageView ivCalculadora = findViewById(R.id.iv_calculadora);
+        ImageView ivReproductor = findViewById(R.id.iv_reproductor);
+        ImageView ivRobot       = findViewById(R.id.iv_robot);
+        ImageView ivCcasa       = findViewById(R.id.iv_ccasa);
+        ImageView ivGraficas    = findViewById(R.id.iv_graficas);
+        ImageView ivExit        = findViewById(R.id.iv_exit);
+
+        // Cargar con Glide: si la imagen es GIF, Glide la animará automáticamente
+        try {
+            Glide.with(this).load(R.drawable.mapa).into(ivUbicacion);
+            Glide.with(this).load(R.drawable.camara).into(ivCamara);
+            Glide.with(this).load(R.drawable.agenda).into(ivAgenda);
+            Glide.with(this).load(R.drawable.calculadora).into(ivCalculadora);
+            Glide.with(this).load(R.drawable.jugar).into(ivReproductor);
+            Glide.with(this).load(R.drawable.robot).into(ivRobot);
+            Glide.with(this).load(R.drawable.controlcasa).into(ivCcasa);
+            Glide.with(this).load(R.drawable.grafica).into(ivGraficas);
+            Glide.with(this).load(R.drawable.cerrar).into(ivExit);
+        } catch (Exception e) {
+            Log.w(TAG, "No se pudieron cargar algunos GIFs con Glide: " + e.getMessage());
+        }
 
         // Validar que todos los botones fueron encontrados
         if (btn_calculadora == null) throw new RuntimeException("btn_calculadora no encontrado");
@@ -79,6 +109,7 @@ public class menu_inicio extends AppCompatActivity {
         if (btn_robot == null) throw new RuntimeException("btn_robot no encontrado");
         if (btn_ccasa == null) throw new RuntimeException("btn_ccasa no encontrado");
         if (btn_exit == null) throw new RuntimeException("btn_exit no encontrado");
+        if (btn_graficas == null) throw new RuntimeException("btn_graficas (graficas) no encontrado");
 
         Log.i(TAG, "Todos los botones encontrados. Configurando listeners...");
 
@@ -98,6 +129,9 @@ public class menu_inicio extends AppCompatActivity {
 
         // Robot
         btn_robot.setOnClickListener(v -> navegarAActividad("Robot", RobotMenuActivity.class));
+
+        // Graficas
+        btn_graficas.setOnClickListener(v -> navegarAActividad("Gráficas", Graficas.class));
 
         // Ubicación
         btn_ubicacion.setOnClickListener(v -> navegarAActividad("Ubicación", UbicacionActivity.class));

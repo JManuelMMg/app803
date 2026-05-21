@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/transparent">
+
+    <!-- Título simple -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generador de Gráficas"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="12dp"
+        android:textColor="#2C3E50" />
+
+    <!-- Botones alineados en la misma línea: Barras, Línea, Pastel -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"
+        android:weightSum="3">
+
+        <!-- Botón 1: Barras -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/card_background"
+            android:padding="8dp"
+            android:layout_marginEnd="6dp">
+
+            <ImageView
+                android:id="@+id/iv_btn_barras"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/gbarras"
+                android:contentDescription="icono barras" />
+
+            <Button
+                android:id="@+id/btn_barras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Barras"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+        <!-- Botón 2: Línea -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/card_background"
+            android:padding="8dp"
+            android:layout_marginEnd="6dp">
+
+            <ImageView
+                android:id="@+id/iv_btn_linea"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/glineal"
+                android:contentDescription="icono linea" />
+
+            <Button
+                android:id="@+id/btn_linea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Línea"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+        <!-- Botón 3: Pastel -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/card_background"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/iv_btn_pastel"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/gpastel"
+                android:contentDescription="icono pastel" />
+
+            <Button
+                android:id="@+id/btn_pastel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pastel"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Contenedor donde se agregan dinámicamente las gráficas -->
+    <FrameLayout
+        android:id="@+id/chartContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:padding="8dp" />
+
+</LinearLayout>
+

@@ -86,6 +86,11 @@
             android:name=".CamaraActivity"
             android:exported="false" />
 
+        <!-- Actividad para mostrar gráficas con MPAndroidChart -->
+        <activity
+            android:name=".Graficas"
+            android:exported="false" />
+
         <activity
             android:name=".RobotControlActivity"
             android:exported="false" />

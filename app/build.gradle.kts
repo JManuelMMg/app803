@@ -124,6 +124,12 @@ dependencies {
     // Toasty
     implementation("com.github.GrenderG:Toasty:1.5.2")
 
+    // MPAndroidChart - librería para generar gráficas (obtenida desde JitPack)
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // Glide para cargar y animar GIFs en ImageView
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

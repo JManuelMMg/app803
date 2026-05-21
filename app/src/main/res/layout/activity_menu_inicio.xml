@@ -89,6 +89,7 @@
                 android:padding="16dp">
 
                 <ImageView
+                    android:id="@+id/iv_ubicacion"
                     android:layout_width="81dp"
                     android:layout_height="70dp"
                     android:src="@drawable/mapa" />
@@ -98,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="Ubicación"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
                     android:fontFamily="@font/font_menu"
@@ -128,6 +129,7 @@
                 android:padding="16dp">
 
                 <ImageView
+                    android:id="@+id/iv_camara"
                     android:layout_width="67dp"
                     android:layout_height="70dp"
                     android:src="@drawable/camara" />
@@ -137,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="Camara"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
                     android:fontFamily="@font/font_menu"
@@ -167,6 +169,7 @@
                 android:padding="16dp">
 
                 <ImageView
+                    android:id="@+id/iv_agenda"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:src="@drawable/agenda" />
@@ -176,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="Agenda"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
                     android:fontFamily="@font/font_menu"
@@ -205,6 +208,7 @@
                 android:padding="16dp">
 
                 <ImageView
+                    android:id="@+id/iv_calculadora"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:src="@drawable/calculadora" />
@@ -214,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="Claculadora"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
                     android:fontFamily="@font/font_menu"
@@ -244,6 +248,7 @@
                 android:padding="16dp">
 
                 <ImageView
+                    android:id="@+id/iv_reproductor"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:src="@drawable/jugar" />
@@ -253,7 +258,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="Reproductor"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#2C3E50"
                     android:fontFamily="@font/font_menu"
@@ -277,12 +282,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="145dp"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:padding="16dp">
 
                 <ImageView
+                    android:id="@+id/iv_robot"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:src="@drawable/robot" />
@@ -290,12 +296,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Robot"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#2C3E50"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/font_menu"
-                    android:layout_marginTop="8dp" />
+                    android:text="Robot"
+                    android:textColor="#2C3E50"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -321,6 +327,7 @@
                 android:padding="16dp">
 
                 <ImageView
+                    android:id="@+id/iv_ccasa"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:src="@drawable/controlcasa" />
@@ -330,11 +337,50 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="Control de hogar"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:fontFamily="@font/font_menu"
                     android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Tarjeta 5: gráficas -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graficas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_graficas"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/grafica" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/font_menu"
+                    android:text="Graficas"
+                    android:textColor="#2C3E50"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <!-- Tarjeta 6: exit -->
@@ -359,6 +405,7 @@
                 android:padding="16dp">
 
                 <ImageView
+                    android:id="@+id/iv_exit"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:src="@drawable/cerrar" />
