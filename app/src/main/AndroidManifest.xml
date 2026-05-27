@@ -31,9 +31,22 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppJuan803">
+        <activity
+            android:name=".CrearReservacionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservacionesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Eventos"
+            android:exported="false" />
         <activity
             android:name=".menu_inicio"
             android:exported="false" />

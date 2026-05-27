@@ -20,7 +20,7 @@ public class menu_inicio extends AppCompatActivity {
 
     private static final String TAG = "MenuInicio";
     private CardView btn_calculadora, btn_agenda, btn_ubicacion, btn_camara,
-            btn_reproductor, btn_robot, btn_ccasa, btn_exit, btn_graficas;
+            btn_reproductor, btn_robot, btn_ccasa, btn_exit, btn_graficas, btn_reservaciones;
 
     private Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -73,6 +73,8 @@ public class menu_inicio extends AppCompatActivity {
         btn_exit        = findViewById(R.id.btn_exit);
         // Botón para abrir la actividad de gráficas
         btn_graficas    = findViewById(R.id.graficas);
+        // Botón para abrir la actividad de reservaciones
+        btn_reservaciones = findViewById(R.id.reservaciones);
 
         // Referencias a ImageViews de los iconos para animar GIFs si aplican
         ImageView ivUbicacion   = findViewById(R.id.iv_ubicacion);
@@ -110,6 +112,7 @@ public class menu_inicio extends AppCompatActivity {
         if (btn_ccasa == null) throw new RuntimeException("btn_ccasa no encontrado");
         if (btn_exit == null) throw new RuntimeException("btn_exit no encontrado");
         if (btn_graficas == null) throw new RuntimeException("btn_graficas (graficas) no encontrado");
+        if (btn_reservaciones == null) throw new RuntimeException("btn_reservaciones no encontrado");
 
         Log.i(TAG, "Todos los botones encontrados. Configurando listeners...");
 
@@ -138,6 +141,9 @@ public class menu_inicio extends AppCompatActivity {
 
         // Cámara
         btn_camara.setOnClickListener(v -> navegarAActividad("Cámara", CamaraActivity.class));
+
+        // Reservaciones - NUEVO: Abre el sistema de gestión de reservaciones
+        btn_reservaciones.setOnClickListener(v -> navegarAActividad("Reservaciones", Eventos.class));
 
         Log.i(TAG, "Todos los listeners configurados");
     }

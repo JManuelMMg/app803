@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- CardView de la reservación -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#FAFFFFFF"
+        app:strokeColor="#DCEAF7"
+        app:strokeWidth="1dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvTipoEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Conferencia"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#075985"
+                android:background="@drawable/reservation_chip"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/tvEvento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre del Evento"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#0F172A"
+                android:fontFamily="@font/font_menu"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Contenedor de información -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:spacing="8dp">
+
+                <!-- Fecha -->
+                <TextView
+                    android:id="@+id/tvFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha: 2026-06-15"
+                    android:textSize="14sp"
+                    android:textColor="#475569"
+                    android:layout_marginBottom="4dp" />
+
+                <!-- Lugar -->
+                <TextView
+                    android:id="@+id/tvLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lugar del evento"
+                    android:textSize="14sp"
+                    android:textColor="#475569"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cliente: usuario@correo.com"
+                    android:textSize="13sp"
+                    android:textColor="#0F766E"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"
+                    android:visibility="gone" />
+
+                <!-- Descripción (opcional) -->
+                <TextView
+                    android:id="@+id/tvDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción del evento..."
+                    android:textSize="12sp"
+                    android:textColor="#475569"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/panel_surface"
+                    android:padding="8dp" />
+            </LinearLayout>
+
+            <!-- Botones de acción -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:spacing="8dp"
+                android:layout_marginTop="12dp">
+
+                <!-- Botón Editar (solo admin) -->
+                <Button
+                    android:id="@+id/btnEditar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Editar"
+                    android:textSize="12sp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:background="@drawable/button_primary"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
+
+                <!-- Botón Eliminar (solo admin) -->
+                <Button
+                    android:id="@+id/btnEliminar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Eliminar"
+                    android:textSize="12sp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:background="@drawable/button_danger"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
+

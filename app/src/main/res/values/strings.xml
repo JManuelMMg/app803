@@ -14,6 +14,17 @@
         <item>Domingo</item>
     </string-array>
 
+    <string-array name="tipos_evento">
+        <item>Conferencia</item>
+        <item>Cena</item>
+        <item>Plática</item>
+        <item>Taller</item>
+        <item>Seminario</item>
+        <item>Reunión</item>
+        <item>Evento social</item>
+        <item>Evento general</item>
+    </string-array>
+
     <!-- Descripción accesible para el logo del splash -->
     <string name="splash_logo_desc">Logotipo de AppJuan803</string>
     <string name="gallery_preview">Galería</string>

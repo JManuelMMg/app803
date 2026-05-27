@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back_menu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:background="@drawable/header_overlay">
+
+        <TextView
+            android:id="@+id/tvTituloFormulario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NUEVA RESERVACIÓN"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/font_menu"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecciona el tipo, captura el nombre y agenda el evento"
+            android:textSize="13sp"
+            android:textColor="#DBF2FF"
+            android:gravity="center"
+            android:layout_marginTop="6dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/reservations_panel">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Detalles del evento"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#0F172A"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de evento *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#1E3A5F"
+                android:layout_marginBottom="5dp" />
+
+            <Spinner
+                android:id="@+id/spTipoEvento"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:entries="@array/tipos_evento"
+                android:layout_marginBottom="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre del evento *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#1E3A5F"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/etEvento"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Ej: Conferencia de Tecnología"
+                android:inputType="textCapSentences"
+                android:padding="12dp"
+                android:textColor="#0F172A"
+                android:textColorHint="#7A8CA3"
+                android:layout_marginBottom="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha del evento *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#1E3A5F"
+                android:layout_marginBottom="5dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="14dp">
+
+                <EditText
+                    android:id="@+id/etFecha"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:hint="2026-06-15"
+                    android:padding="12dp"
+                    android:background="@drawable/edit_text_background"
+                    android:textColor="#0F172A"
+                    android:textColorHint="#7A8CA3"
+                    android:inputType="text" />
+
+                <Button
+                    android:id="@+id/btnSeleccionarFecha"
+                    android:layout_width="54dp"
+                    android:layout_height="50dp"
+                    android:text="Cal"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#0F172A"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="Seleccionar fecha" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lugar *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#1E3A5F"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/etLugar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Ej: Auditorio Principal"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background"
+                android:textColor="#0F172A"
+                android:textColorHint="#7A8CA3"
+                android:inputType="textCapSentences"
+                android:layout_marginBottom="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descripción"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#1E3A5F"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/etDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="108dp"
+                android:hint="Añade detalles útiles para los asistentes..."
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background"
+                android:textColor="#0F172A"
+                android:textColorHint="#7A8CA3"
+                android:inputType="textMultiLine|textCapSentences"
+                android:gravity="top" />
+        </LinearLayout>
+    </ScrollView>
+
+
+    PS C:\Users\jmedi\AndroidStudioProjects\app803\backend>   <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@drawable/panel_surface">
+
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="CANCELAR"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_danger" />
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="GUARDAR"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_success"
+            android:layout_marginStart="10dp" />
+    </LinearLayout>
+</LinearLayout>

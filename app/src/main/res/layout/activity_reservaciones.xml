@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/back_menu">
+
+    <!-- Encabezado -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="4dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/header_overlay">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EVENTOS Y RESERVACIONES"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/font_menu"
+                android:shadowColor="#000000"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Consulta, agenda y administra según tu rol"
+                android:textSize="13sp"
+                android:textColor="#CFE8FF"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Barra de progreso -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:visibility="gone"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+
+    <!-- Mensaje de vacío -->
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="No hay reservaciones disponibles"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="#EAF6FF"
+        android:background="#990F172A"
+        android:visibility="gone" />
+
+    <!-- RecyclerView de Reservaciones -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="14dp"
+        android:clipToPadding="false" />
+
+    <!-- Botones inferiores -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/panel_surface">
+
+        <!-- Botón Crear Reservación (ID CRÍTICO) -->
+        <Button
+            android:id="@+id/reservaciones"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="CARGAR RESERVACIONES"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_primary"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnCrearReservacion"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="+ CREAR RESERVACIÓN"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_success"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Botón Dashboard (solo admin) -->
+        <Button
+            android:id="@+id/btnDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="📊 DASHBOARD"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_primary"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
+
+        <!-- Botón Logout -->
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="CERRAR SESIÓN"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_danger" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

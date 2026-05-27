@@ -117,6 +117,13 @@ dependencies {
     
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    // Retrofit + OkHttp para consumir FastAPI
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // ExoPlayer (opcional) - comentado para evitar resolución en entornos sin acceso a repositorios.
     // Si quieres usar ExoPlayer, descomenta la siguiente línea y sincroniza Gradle:
