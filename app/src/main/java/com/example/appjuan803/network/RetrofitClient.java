@@ -18,11 +18,8 @@ public class RetrofitClient {
 
     private static final String TAG = "RetrofitClient";
 
-    // URL base del servidor FastAPI
-    // Cambiar según tu ambiente:
-    // - Local: http://192.168.1.XX:8000
-    // - Remoto: http://tu-servidor.com
-    private static final String BASE_URL = "http://10.0.2.2:8000/";
+    // URL base del servidor FastAPI desplegado en Render
+    private static final String BASE_URL = "https://app803-1.onrender.com/";
 
     private static Retrofit retrofit;
     private static ApiService apiService;
