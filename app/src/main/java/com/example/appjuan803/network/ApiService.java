@@ -2,6 +2,7 @@ package com.example.appjuan803.network;
 
 import com.example.appjuan803.models.LoginRequest;
 import com.example.appjuan803.models.LoginResponse;
+import com.example.appjuan803.models.Evento;
 import com.example.appjuan803.models.Reservacion;
 import com.example.appjuan803.models.ReservacionListResponse;
 import com.example.appjuan803.models.EstadisticasResponse;
@@ -16,6 +17,8 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+
+import java.util.List;
 
 /**
  * Interfaz de Retrofit para definir los endpoints de la API
@@ -78,6 +81,13 @@ public interface ApiService {
         @Header("Authorization") String authorization,
         @Body Reservacion reservacion
     );
+
+    /**
+     * Catálogo público de eventos disponibles
+     * GET /api/events
+     */
+    @GET("/api/events")
+    Call<List<Evento>> listarEventos();
 
     /**
      * Obtener una reservación por ID

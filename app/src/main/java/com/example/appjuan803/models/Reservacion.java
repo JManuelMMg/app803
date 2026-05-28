@@ -16,6 +16,12 @@ public class Reservacion {
     @SerializedName("tipo_evento")
     private String tipoEvento;
 
+    @SerializedName("event_id")
+    private Integer eventId;
+
+    @SerializedName("evento_id")
+    private Integer eventoId;
+
     @SerializedName("fecha")
     private String fecha;  // Formato: YYYY-MM-DD
 
@@ -81,6 +87,22 @@ public class Reservacion {
 
     public void setTipoEvento(String tipoEvento) {
         this.tipoEvento = tipoEvento;
+    }
+
+    public Integer getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
+    }
+
+    public Integer getEventoId() {
+        return eventoId;
+    }
+
+    public void setEventoId(Integer eventoId) {
+        this.eventoId = eventoId;
     }
 
     public String getFecha() {

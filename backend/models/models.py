@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from sqlalchemy import Date, DateTime, ForeignKey, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -42,7 +44,7 @@ class Reservacion(Base):
     usuario: Mapped[Usuario | None] = relationship(back_populates="reservaciones")
 
     # relacion opcional al evento del catálogo
-    evento_rel: Mapped["Evento" | None] = relationship(back_populates="reservaciones")
+    evento_rel: Mapped["Evento"] = relationship(back_populates="reservaciones")
 
     @property
     def usuario_nombre(self) -> str | None:
@@ -51,6 +53,10 @@ class Reservacion(Base):
     @property
     def usuario_correo(self) -> str | None:
         return self.usuario.correo if self.usuario else None
+
+    @property
+    def event_id(self) -> int | None:
+        return self.evento_id
 
 
 
@@ -67,4 +73,3 @@ class Evento(Base):
     created_at: Mapped[str] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
     reservaciones: Mapped[list[Reservacion]] = relationship(back_populates="evento_rel", cascade="all, delete-orphan")
-

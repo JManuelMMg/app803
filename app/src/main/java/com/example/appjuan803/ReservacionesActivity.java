@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appjuan803.adapter.EventoAdapter;
 import com.example.appjuan803.adapter.ReservacionAdapter;
+import com.example.appjuan803.models.Evento;
 import com.example.appjuan803.models.Reservacion;
 import com.example.appjuan803.models.ReservacionListResponse;
 import com.example.appjuan803.network.ApiService;
@@ -41,9 +43,13 @@ public class ReservacionesActivity extends AppCompatActivity {
     private static final String KEY_USER_ROL = "user_rol";
 
     private RecyclerView recyclerView;
+    private RecyclerView recyclerEventos;
     private ReservacionAdapter adapter;
+    private EventoAdapter eventoAdapter;
     private ProgressBar progressBar;
     private TextView tvEmpty;
+    private TextView tvEventosEmpty;
+    private TextView tvReservacionesTitulo;
     private Button btnLogout;
     private Button btnCrearReservacion;
     private Button btnDashboard;
@@ -68,7 +74,8 @@ public class ReservacionesActivity extends AppCompatActivity {
         // Inicializar vistas
         initializeView();
 
-        // Cargar reservaciones
+        // Cargar catálogo y reservaciones
+        loadEventos();
         loadReservaciones();
 
         // Configurar listeners
@@ -102,8 +109,11 @@ public class ReservacionesActivity extends AppCompatActivity {
      */
     private void initializeView() {
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerEventos = findViewById(R.id.recyclerEventos);
         progressBar = findViewById(R.id.progressBar);
         tvEmpty = findViewById(R.id.tvEmpty);
+        tvEventosEmpty = findViewById(R.id.tvEventosEmpty);
+        tvReservacionesTitulo = findViewById(R.id.tvReservacionesTitulo);
         btnLogout = findViewById(R.id.btnLogout);
         btnCrearReservacion = findViewById(R.id.btnCrearReservacion);
         btnDashboard = findViewById(R.id.btnDashboard);
@@ -116,11 +126,23 @@ public class ReservacionesActivity extends AppCompatActivity {
             false
         );
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+
+        LinearLayoutManager eventosLayoutManager = new LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        );
+        recyclerEventos.setLayoutManager(eventosLayoutManager);
+        recyclerEventos.setNestedScrollingEnabled(false);
 
         // Crear adaptador
         adapter = new ReservacionAdapter(new ArrayList<>(), this, userRol);
         adapter.setToken(token);
         recyclerView.setAdapter(adapter);
+
+        eventoAdapter = new EventoAdapter(new ArrayList<>(), this::reservarEvento);
+        recyclerEventos.setAdapter(eventoAdapter);
 
         // Inicializar servicio API
         apiService = RetrofitClient.getApiService();
@@ -133,8 +155,11 @@ public class ReservacionesActivity extends AppCompatActivity {
         // Botón Logout
         btnLogout.setOnClickListener(v -> performLogout());
 
-        // Botón requerido: detona GET /api/reservaciones con Bearer token e infla el RecyclerView
-        btnReservaciones.setOnClickListener(v -> loadReservaciones());
+        // Botón requerido: refresca catálogo y GET /api/reservaciones con Bearer token
+        btnReservaciones.setOnClickListener(v -> {
+            loadEventos();
+            loadReservaciones();
+        });
 
         // Botón Crear Reservación
         btnCrearReservacion.setOnClickListener(v -> abrirCrearReservacion());
@@ -203,6 +228,94 @@ public class ReservacionesActivity extends AppCompatActivity {
         });
     }
 
+    private void loadEventos() {
+        Log.d(TAG, "Cargando catálogo de eventos...");
+        showProgress(true);
+
+        apiService.listarEventos().enqueue(new Callback<List<Evento>>() {
+            @Override
+            public void onResponse(Call<List<Evento>> call, Response<List<Evento>> response) {
+                showProgress(false);
+
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Evento> eventos = response.body();
+                    eventoAdapter.setEventos(eventos);
+                    tvEventosEmpty.setVisibility(eventos.isEmpty() ? View.VISIBLE : View.GONE);
+                    recyclerEventos.setVisibility(eventos.isEmpty() ? View.GONE : View.VISIBLE);
+                } else {
+                    Log.e(TAG, "Error al cargar eventos: " + response.code());
+                    tvEventosEmpty.setVisibility(View.VISIBLE);
+                    recyclerEventos.setVisibility(View.GONE);
+                    Toast.makeText(
+                        ReservacionesActivity.this,
+                        "Error al cargar catálogo de eventos",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Evento>> call, Throwable t) {
+                showProgress(false);
+                Log.e(TAG, "Error de conexión al cargar eventos", t);
+                tvEventosEmpty.setVisibility(View.VISIBLE);
+                recyclerEventos.setVisibility(View.GONE);
+                Toast.makeText(
+                    ReservacionesActivity.this,
+                    "Error de conexión al cargar eventos: " + t.getMessage(),
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+    }
+
+    private void reservarEvento(Evento evento) {
+        showProgress(true);
+
+        Reservacion reservacion = new Reservacion();
+        reservacion.setEventId(evento.getId());
+
+        String authorization = "Bearer " + token;
+        apiService.crearReservacion(authorization, reservacion).enqueue(new Callback<Reservacion>() {
+            @Override
+            public void onResponse(Call<Reservacion> call, Response<Reservacion> response) {
+                showProgress(false);
+
+                if (response.isSuccessful()) {
+                    Toast.makeText(
+                        ReservacionesActivity.this,
+                        "Reservación creada para: " + evento.getTitulo(),
+                        Toast.LENGTH_SHORT
+                    ).show();
+                    loadReservaciones();
+                } else if (response.code() == 409) {
+                    Toast.makeText(
+                        ReservacionesActivity.this,
+                        "No se pudo reservar: cupo lleno o ya tienes esta reservación",
+                        Toast.LENGTH_LONG
+                    ).show();
+                } else {
+                    Toast.makeText(
+                        ReservacionesActivity.this,
+                        "Error al reservar evento",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Reservacion> call, Throwable t) {
+                showProgress(false);
+                Log.e(TAG, "Error al reservar evento", t);
+                Toast.makeText(
+                    ReservacionesActivity.this,
+                    "Error de conexión al reservar: " + t.getMessage(),
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+    }
+
     /**
      * Configurar opciones según el rol del usuario
      */
@@ -211,10 +324,12 @@ public class ReservacionesActivity extends AppCompatActivity {
             Log.d(TAG, "Usuario es ADMIN - mostrando todas las opciones");
             btnDashboard.setVisibility(View.VISIBLE);
             btnCrearReservacion.setVisibility(View.VISIBLE);
+            tvReservacionesTitulo.setText("Reservaciones registradas");
         } else {
             Log.d(TAG, "Usuario es NORMAL - limitando opciones");
             btnDashboard.setVisibility(View.GONE);
             btnCrearReservacion.setVisibility(View.VISIBLE);
+            tvReservacionesTitulo.setText("Mis reservaciones");
         }
     }
 
@@ -290,6 +405,7 @@ public class ReservacionesActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Recargar al volver a la activity
+        loadEventos();
         loadReservaciones();
     }
 }

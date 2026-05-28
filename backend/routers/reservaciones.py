@@ -3,7 +3,8 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session, joinedload
 
 from config.db import get_db
-from models.models import Reservacion, Usuario, Evento
+from models.models import Evento as EventoModel
+from models.models import Reservacion, Usuario
 from routers.auth import get_current_user, require_admin
 from schemas.schemas import (
     DashboardResponse,
@@ -11,7 +12,7 @@ from schemas.schemas import (
     ReservacionListResponse,
     Reservacion as ReservacionSchema,
     ReservacionUpdate,
-    Evento,
+    Evento as EventoSchema,
     EventoCreate,
 )
 
@@ -51,19 +52,45 @@ def crear_reservacion(
     # Si viene event_id, validar que exista y tomar los datos del evento
     event_id = data.get("event_id")
     if event_id is not None:
-        evento_obj = db.get(Evento, event_id)
+        evento_obj = db.get(EventoModel, event_id)
         if evento_obj is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
+
+        reservacion_existente = (
+            db.query(Reservacion)
+            .filter(
+                Reservacion.evento_id == event_id,
+                Reservacion.usuario_id == current_user.id,
+            )
+            .first()
+        )
+        if reservacion_existente is not None:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="Ya tienes una reservación para este evento",
+            )
+
+        if evento_obj.capacidad is not None:
+            total_evento = db.query(Reservacion).filter(Reservacion.evento_id == event_id).count()
+            if total_evento >= evento_obj.capacidad:
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail="El evento ya no tiene cupo disponible",
+                )
+
         # Sobrescribimos los campos relevantes con los del catálogo para mantener consistencia
         data["evento"] = evento_obj.titulo
         data["tipo_evento"] = evento_obj.tipo_evento
         data["fecha"] = evento_obj.fecha
         data["lugar"] = evento_obj.lugar
+        data["evento_id"] = event_id
+        data.pop("event_id", None)
 
-    # Si no hay event_id, requerimos los campos mínimos
-    if data.get("event_id") is None:
+    # Si no hay event_id, requerimos los campos mínimos y limpiamos la clave pública.
+    if event_id is None:
         if not data.get("evento") or not data.get("fecha") or not data.get("lugar"):
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Debe proveer event_id o los campos evento, fecha y lugar")
+        data.pop("event_id", None)
 
     nueva = Reservacion(**data, usuario_id=current_user.id)
     db.add(nueva)
@@ -73,24 +100,24 @@ def crear_reservacion(
 
 
 # Endpoints para catálogo de eventos
-@router.get("/events", response_model=list[Evento])
+@router.get("/events", response_model=list[EventoSchema])
 def listar_eventos_publicos(db: Session = Depends(get_db)):
-    eventos = db.query(Evento).order_by(Evento.fecha.asc()).all()
+    eventos = db.query(EventoModel).order_by(EventoModel.fecha.asc()).all()
     return eventos
 
 
-@router.post("/events", response_model=Evento, status_code=status.HTTP_201_CREATED)
+@router.post("/events", response_model=EventoSchema, status_code=status.HTTP_201_CREATED)
 def crear_evento(evento: EventoCreate, db: Session = Depends(get_db), current_user: Usuario = Depends(require_admin)):
-    nueva = Evento(**evento.model_dump())
+    nueva = EventoModel(**evento.model_dump())
     db.add(nueva)
     db.commit()
     db.refresh(nueva)
     return nueva
 
 
-@router.get("/events/{event_id}", response_model=Evento)
+@router.get("/events/{event_id}", response_model=EventoSchema)
 def obtener_evento(event_id: int, db: Session = Depends(get_db)):
-    evento = db.get(Evento, event_id)
+    evento = db.get(EventoModel, event_id)
     if evento is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
     return evento
@@ -121,7 +148,20 @@ def actualizar_reservacion(
     if reservacion is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Reservación no encontrada")
 
-    for field, value in data.model_dump(exclude_unset=True).items():
+    update_data = data.model_dump(exclude_unset=True)
+    if "event_id" in update_data:
+        event_id = update_data.pop("event_id")
+        if event_id is not None:
+            evento_obj = db.get(EventoModel, event_id)
+            if evento_obj is None:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
+            update_data["evento_id"] = event_id
+            update_data["evento"] = evento_obj.titulo
+            update_data["tipo_evento"] = evento_obj.tipo_evento
+            update_data["fecha"] = evento_obj.fecha
+            update_data["lugar"] = evento_obj.lugar
+
+    for field, value in update_data.items():
         setattr(reservacion, field, value)
 
     db.commit()

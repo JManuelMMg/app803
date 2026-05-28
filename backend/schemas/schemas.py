@@ -65,6 +65,7 @@ class ReservacionUpdate(BaseModel):
 class Reservacion(ReservacionBase):
     id: int
     usuario_id: int | None = None
+    evento_id: int | None = None
     usuario_nombre: str | None = None
     usuario_correo: str | None = None
     created_at: datetime | None = None

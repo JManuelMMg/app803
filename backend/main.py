@@ -41,8 +41,28 @@ def create_admin_if_needed(db: Session) -> None:
 def ensure_reservacion_columns(db: Session) -> None:
     statements = [
         (
+            "CREATE TABLE IF NOT EXISTS eventos ("
+            "id SERIAL PRIMARY KEY, "
+            "titulo VARCHAR(180) NOT NULL, "
+            "tipo_evento VARCHAR(80) NOT NULL DEFAULT 'Evento general', "
+            "fecha DATE NOT NULL, "
+            "lugar VARCHAR(180) NOT NULL, "
+            "descripcion TEXT, "
+            "capacidad INTEGER, "
+            "created_at TIMESTAMP WITH TIME ZONE DEFAULT now()"
+            ")"
+        ),
+        (
             "ALTER TABLE reservaciones "
             "ADD COLUMN IF NOT EXISTS tipo_evento VARCHAR(80) NOT NULL DEFAULT 'Evento general'"
+        ),
+        (
+            "ALTER TABLE reservaciones "
+            "ADD COLUMN IF NOT EXISTS evento_id INTEGER REFERENCES eventos(id)"
+        ),
+        (
+            "CREATE INDEX IF NOT EXISTS ix_reservaciones_evento_id "
+            "ON reservaciones (evento_id)"
         ),
         (
             "UPDATE reservaciones "

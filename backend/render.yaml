@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: app803-backend
+    env: python
+    rootDir: backend
+    buildCommand: python -m pip install -r requirements.txt
+    startCommand: python -m uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
