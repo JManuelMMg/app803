@@ -19,12 +19,26 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
         void onReservarClick(Evento evento);
     }
 
+    public interface OnAdminEventoClickListener {
+        void onEditarEvento(Evento evento);
+        void onEliminarEvento(Evento evento);
+    }
+
     private List<Evento> eventos;
     private final OnReservarClickListener listener;
+    private final OnAdminEventoClickListener adminListener;
+    private final boolean admin;
 
-    public EventoAdapter(List<Evento> eventos, OnReservarClickListener listener) {
+    public EventoAdapter(
+        List<Evento> eventos,
+        OnReservarClickListener listener,
+        OnAdminEventoClickListener adminListener,
+        boolean admin
+    ) {
         this.eventos = eventos;
         this.listener = listener;
+        this.adminListener = adminListener;
+        this.admin = admin;
     }
 
     @Override
@@ -57,6 +71,9 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
         private final TextView tvDescripcion;
         private final TextView tvCapacidad;
         private final AppCompatButton btnReservar;
+        private final View layoutAdminEvento;
+        private final AppCompatButton btnEditar;
+        private final AppCompatButton btnEliminar;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +84,9 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
             tvDescripcion = itemView.findViewById(R.id.tvEventoDescripcion);
             tvCapacidad = itemView.findViewById(R.id.tvEventoCapacidad);
             btnReservar = itemView.findViewById(R.id.btnReservarEvento);
+            layoutAdminEvento = itemView.findViewById(R.id.layoutAdminEvento);
+            btnEditar = itemView.findViewById(R.id.btnEditarEvento);
+            btnEliminar = itemView.findViewById(R.id.btnEliminarEvento);
         }
 
         void bind(Evento evento) {
@@ -89,6 +109,12 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
             }
 
             btnReservar.setOnClickListener(v -> listener.onReservarClick(evento));
+
+            layoutAdminEvento.setVisibility(admin ? View.VISIBLE : View.GONE);
+            if (admin) {
+                btnEditar.setOnClickListener(v -> adminListener.onEditarEvento(evento));
+                btnEliminar.setOnClickListener(v -> adminListener.onEliminarEvento(evento));
+            }
         }
     }
 }

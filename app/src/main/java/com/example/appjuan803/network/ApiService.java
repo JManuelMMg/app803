@@ -89,6 +89,25 @@ public interface ApiService {
     @GET("/api/events")
     Call<List<Evento>> listarEventos();
 
+    @POST("/api/events")
+    Call<Evento> crearEvento(
+        @Header("Authorization") String authorization,
+        @Body Evento evento
+    );
+
+    @PUT("/api/events/{id}")
+    Call<Evento> actualizarEvento(
+        @Header("Authorization") String authorization,
+        @Path("id") int id,
+        @Body Evento evento
+    );
+
+    @DELETE("/api/events/{id}")
+    Call<Void> eliminarEvento(
+        @Header("Authorization") String authorization,
+        @Path("id") int id
+    );
+
     /**
      * Obtener una reservación por ID
      * GET /api/reservaciones/{id}

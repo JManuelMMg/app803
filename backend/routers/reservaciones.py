@@ -14,6 +14,7 @@ from schemas.schemas import (
     ReservacionUpdate,
     Evento as EventoSchema,
     EventoCreate,
+    EventoUpdate,
 )
 
 router = APIRouter(prefix="/api", tags=["reservaciones"])
@@ -121,6 +122,41 @@ def obtener_evento(event_id: int, db: Session = Depends(get_db)):
     if evento is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
     return evento
+
+
+@router.put("/events/{event_id}", response_model=EventoSchema)
+def actualizar_evento(
+    event_id: int,
+    data: EventoUpdate,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(require_admin),
+):
+    evento = db.get(EventoModel, event_id)
+    if evento is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
+
+    update_data = data.model_dump(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(evento, field, value)
+
+    db.commit()
+    db.refresh(evento)
+    return evento
+
+
+@router.delete("/events/{event_id}", status_code=status.HTTP_204_NO_CONTENT)
+def eliminar_evento(
+    event_id: int,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(require_admin),
+):
+    evento = db.get(EventoModel, event_id)
+    if evento is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
+
+    db.delete(evento)
+    db.commit()
+    return None
 
 
 @router.get("/reservaciones/{reservacion_id}", response_model=ReservacionSchema)

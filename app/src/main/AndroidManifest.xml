@@ -36,6 +36,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppJuan803">
         <activity
+            android:name=".CrearEventoActivity"
+            android:exported="false" />
+        <activity
             android:name=".CrearReservacionActivity"
             android:exported="false" />
         <activity

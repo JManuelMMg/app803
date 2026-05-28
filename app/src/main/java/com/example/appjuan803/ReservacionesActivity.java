@@ -52,6 +52,7 @@ public class ReservacionesActivity extends AppCompatActivity {
     private TextView tvReservacionesTitulo;
     private Button btnLogout;
     private Button btnCrearReservacion;
+    private Button btnCrearEvento;
     private Button btnDashboard;
     private Button btnReservaciones;
 
@@ -116,6 +117,7 @@ public class ReservacionesActivity extends AppCompatActivity {
         tvReservacionesTitulo = findViewById(R.id.tvReservacionesTitulo);
         btnLogout = findViewById(R.id.btnLogout);
         btnCrearReservacion = findViewById(R.id.btnCrearReservacion);
+        btnCrearEvento = findViewById(R.id.btnCrearEvento);
         btnDashboard = findViewById(R.id.btnDashboard);
         btnReservaciones = findViewById(R.id.reservaciones);
 
@@ -141,7 +143,22 @@ public class ReservacionesActivity extends AppCompatActivity {
         adapter.setToken(token);
         recyclerView.setAdapter(adapter);
 
-        eventoAdapter = new EventoAdapter(new ArrayList<>(), this::reservarEvento);
+        eventoAdapter = new EventoAdapter(
+            new ArrayList<>(),
+            this::reservarEvento,
+            new EventoAdapter.OnAdminEventoClickListener() {
+                @Override
+                public void onEditarEvento(Evento evento) {
+                    abrirEditarEvento(evento);
+                }
+
+                @Override
+                public void onEliminarEvento(Evento evento) {
+                    confirmarEliminarEvento(evento);
+                }
+            },
+            "admin".equals(userRol)
+        );
         recyclerEventos.setAdapter(eventoAdapter);
 
         // Inicializar servicio API
@@ -166,6 +183,8 @@ public class ReservacionesActivity extends AppCompatActivity {
 
         // Botón Dashboard (admin)
         btnDashboard.setOnClickListener(v -> abrirDashboard());
+
+        btnCrearEvento.setOnClickListener(v -> abrirCrearEvento());
 
     }
 
@@ -316,6 +335,61 @@ public class ReservacionesActivity extends AppCompatActivity {
         });
     }
 
+    private void abrirCrearEvento() {
+        Intent intent = new Intent(this, CrearEventoActivity.class);
+        intent.putExtra("token", token);
+        startActivityForResult(intent, 2);
+    }
+
+    private void abrirEditarEvento(Evento evento) {
+        Intent intent = new Intent(this, CrearEventoActivity.class);
+        intent.putExtra("token", token);
+        intent.putExtra("edit_mode", true);
+        intent.putExtra("event_id", evento.getId());
+        intent.putExtra("titulo", evento.getTitulo());
+        intent.putExtra("tipo_evento", evento.getTipoEvento());
+        intent.putExtra("fecha", evento.getFecha());
+        intent.putExtra("lugar", evento.getLugar());
+        intent.putExtra("descripcion", evento.getDescripcion());
+        if (evento.getCapacidad() != null) {
+            intent.putExtra("capacidad", evento.getCapacidad());
+        }
+        startActivityForResult(intent, 2);
+    }
+
+    private void confirmarEliminarEvento(Evento evento) {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Eliminar evento")
+                .setMessage("¿Deseas eliminar \"" + evento.getTitulo() + "\" del catálogo?")
+                .setPositiveButton("Eliminar", (dialog, which) -> eliminarEvento(evento))
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    private void eliminarEvento(Evento evento) {
+        showProgress(true);
+        String authorization = "Bearer " + token;
+        apiService.eliminarEvento(authorization, evento.getId()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                showProgress(false);
+                if (response.isSuccessful()) {
+                    Toast.makeText(ReservacionesActivity.this, "Evento eliminado", Toast.LENGTH_SHORT).show();
+                    loadEventos();
+                    loadReservaciones();
+                } else {
+                    Toast.makeText(ReservacionesActivity.this, "No se pudo eliminar el evento", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                showProgress(false);
+                Toast.makeText(ReservacionesActivity.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     /**
      * Configurar opciones según el rol del usuario
      */
@@ -324,11 +398,13 @@ public class ReservacionesActivity extends AppCompatActivity {
             Log.d(TAG, "Usuario es ADMIN - mostrando todas las opciones");
             btnDashboard.setVisibility(View.VISIBLE);
             btnCrearReservacion.setVisibility(View.VISIBLE);
+            btnCrearEvento.setVisibility(View.VISIBLE);
             tvReservacionesTitulo.setText("Reservaciones registradas");
         } else {
             Log.d(TAG, "Usuario es NORMAL - limitando opciones");
             btnDashboard.setVisibility(View.GONE);
             btnCrearReservacion.setVisibility(View.VISIBLE);
+            btnCrearEvento.setVisibility(View.GONE);
             tvReservacionesTitulo.setText("Mis reservaciones");
         }
     }

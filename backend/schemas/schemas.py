@@ -88,6 +88,15 @@ class EventoCreate(EventoBase):
     pass
 
 
+class EventoUpdate(BaseModel):
+    titulo: str | None = None
+    tipo_evento: str | None = None
+    fecha: date | None = None
+    lugar: str | None = None
+    descripcion: str | None = None
+    capacidad: int | None = None
+
+
 class Evento(EventoBase):
     id: int
     created_at: datetime | None = None
