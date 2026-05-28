@@ -58,31 +58,37 @@
                 android:gravity="center"
                 android:weightSum="3">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLuzSala"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Sala"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="#FFA500" />
+                    app:backgroundTint="#FFA500"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLuzCocina"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Cocina"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="#FFD700" />
+                    app:backgroundTint="#FFD700"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLuzDormitorio"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Dormitorio"
-                    android:backgroundTint="#87CEEB" />
+                    app:backgroundTint="#87CEEB"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
             </LinearLayout>
         </LinearLayout>
 
@@ -110,14 +116,16 @@
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReducirTemp"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:text="−"
                     android:textSize="24sp"
                     android:layout_marginEnd="16dp"
-                    android:backgroundTint="#4169E1" />
+                    app:backgroundTint="#4169E1"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
 
                 <TextView
                     android:id="@+id/txtTemperatura"
@@ -129,13 +137,15 @@
                     android:textColor="@color/white"
                     android:layout_marginEnd="16dp" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAumentarTemp"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:text="+"
                     android:textSize="24sp"
-                    android:backgroundTint="#FF6347" />
+                    app:backgroundTint="#FF6347"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
             </LinearLayout>
         </LinearLayout>
 
@@ -164,31 +174,37 @@
                 android:gravity="center"
                 android:weightSum="3">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnBloquearPuertas"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="🚪 Puertas"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="#DC143C" />
+                    app:backgroundTint="#DC143C"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnActivarAlarma"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="🚨 Alarma"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="#FF1493" />
+                    app:backgroundTint="#FF1493"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCamaras"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="📹 Cámaras"
-                    android:backgroundTint="#32CD32" />
+                    app:backgroundTint="#32CD32"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
             </LinearLayout>
         </LinearLayout>
 
@@ -217,22 +233,26 @@
                 android:gravity="center"
                 android:weightSum="2">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnTV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Televisor"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="#9370DB" />
+                    app:backgroundTint="#9370DB"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnMusica"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Música"
-                    android:backgroundTint="#20B2AA" />
+                    app:backgroundTint="#20B2AA"
+                    app:cornerRadius="0dp"
+                    style="@style/Widget.MaterialComponents.Button" />
             </LinearLayout>
         </LinearLayout>
 
@@ -263,12 +283,14 @@
                 android:gravity="center"
                 android:layout_marginBottom="8dp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnActualizarEstado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="🔄 Actualizar Estado"
-                android:backgroundTint="#1E90FF" />
+                app:backgroundTint="#1E90FF"
+                app:cornerRadius="0dp"
+                style="@style/Widget.MaterialComponents.Button" />
         </LinearLayout>
 
     </LinearLayout>

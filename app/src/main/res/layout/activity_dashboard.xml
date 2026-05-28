@@ -1,120 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/back_menu">
 
-    <!-- Encabezado -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="16dp">
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="16dp"
+        android:background="@drawable/res_header">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PANEL ADMINISTRATIVO"
-            android:textSize="24sp"
+            android:text="Panel Administrativo"
+            android:textAlignment="center"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/font_menu"
-            android:gravity="center"
-            android:shadowColor="#000000"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="4" />
+            android:fontFamily="@font/font_menu" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Estadísticas de Reservaciones"
-            android:textSize="14sp"
-            android:textColor="#DDF4FF"
-            android:gravity="center"
+            android:text="Indicadores generales del sistema de reservaciones"
+            android:fontFamily="@font/font_menu"
+            android:textSize="13sp"
+            android:textColor="#D8F4F0"
             android:layout_marginTop="4dp" />
     </LinearLayout>
 
-    <!-- Barra de progreso -->
     <ProgressBar
         android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:visibility="gone"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+        android:visibility="gone" />
 
-    <!-- Contenido scrollable -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:padding="16dp"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:spacing="12dp">
+            android:orientation="vertical">
 
-            <!-- Tarjeta 1: Totales -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/dashboard_card"
-                android:padding="16dp"
-                style="@style/CardView">
+                android:background="@drawable/res_panel_premium"
+                android:paddingStart="22dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:elevation="8dp"
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="📊 TOTALES"
-                    android:textSize="16sp"
+                    android:text="Resumen"
+                    android:fontFamily="@font/font_menu"
+                    android:textSize="17sp"
                     android:textStyle="bold"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="12dp" />
-
-                <TextView
-                    android:id="@+id/tvTotalReservaciones"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Total de Reservaciones: 0"
-                    android:textSize="14sp"
-                    android:textColor="#555555"
+                    android:textColor="#12313B"
                     android:layout_marginBottom="8dp" />
 
-                <TextView
-                    android:id="@+id/tvTotalUsuarios"
+                <View
+                    android:layout_width="64dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/res_card_topline"
+                    android:layout_marginBottom="14dp" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total de Usuarios: 0"
-                    android:textSize="14sp"
-                    android:textColor="#555555" />
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:background="@drawable/res_stat_tile">
+
+                        <TextView
+                            android:id="@+id/tvTotalReservaciones"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_menu"
+                            android:text="Total de reservaciones: 0"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#12313B" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:background="@drawable/res_stat_tile"
+                        android:layout_marginStart="10dp">
+
+                        <TextView
+                            android:id="@+id/tvTotalUsuarios"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_menu"
+                            android:text="Total de usuarios: 0"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#12313B" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Tarjeta 2: Reservaciones por Mes -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/dashboard_card"
-                android:padding="16dp"
-                style="@style/CardView">
+                android:background="@drawable/res_panel_premium"
+                android:paddingStart="22dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:elevation="8dp"
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:id="@+id/tvReservacionesPorMes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="📅 Reservaciones por Mes:\n"
+                    android:text="Reservaciones por mes"
+                    android:fontFamily="@font/font_menu"
                     android:textSize="14sp"
-                    android:textColor="#555555"
+                    android:textColor="#314253"
                     android:lineSpacingExtra="4dp" />
 
                 <com.github.mikephil.charting.charts.BarChart
@@ -124,22 +159,26 @@
                     android:layout_marginTop="12dp" />
             </LinearLayout>
 
-            <!-- Tarjeta 3: Eventos Populares -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/dashboard_card"
-                android:padding="16dp"
-                style="@style/CardView">
+                android:background="@drawable/res_panel_premium"
+                android:paddingStart="22dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:elevation="8dp"
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:id="@+id/tvEventosPopulares"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="🎉 Eventos Más Populares:\n"
+                    android:fontFamily="@font/font_menu"
+                    android:text="Eventos más populares"
                     android:textSize="14sp"
-                    android:textColor="#555555"
+                    android:textColor="#314253"
                     android:lineSpacingExtra="4dp" />
 
                 <com.github.mikephil.charting.charts.PieChart
@@ -149,22 +188,26 @@
                     android:layout_marginTop="12dp" />
             </LinearLayout>
 
-            <!-- Tarjeta 4: Lugares Populares -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/dashboard_card"
-                android:padding="16dp"
-                style="@style/CardView">
+                android:background="@drawable/res_panel_premium"
+                android:paddingStart="22dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:elevation="8dp"
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:id="@+id/tvLugaresPopulares"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="📍 Lugares Más Reservados:\n"
+                    android:fontFamily="@font/font_menu"
+                    android:text="Lugares más reservados"
                     android:textSize="14sp"
-                    android:textColor="#555555"
+                    android:textColor="#314253"
                     android:lineSpacingExtra="4dp" />
 
                 <com.github.mikephil.charting.charts.BarChart
@@ -178,16 +221,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/dashboard_card"
-                android:padding="16dp">
+                android:background="@drawable/res_panel_premium"
+                android:paddingStart="22dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:elevation="8dp">
 
                 <TextView
                     android:id="@+id/tvOcupacionEventos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ocupación por evento:\n"
+                    android:fontFamily="@font/font_menu"
+                    android:text="Ocupación por evento"
                     android:textSize="14sp"
-                    android:textColor="#334155"
+                    android:textColor="#314253"
                     android:lineSpacingExtra="4dp" />
 
                 <com.github.mikephil.charting.charts.BarChart
@@ -196,25 +244,19 @@
                     android:layout_height="220dp"
                     android:layout_marginTop="12dp" />
             </LinearLayout>
-
-            <!-- Espacio adicional -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
         </LinearLayout>
-
     </ScrollView>
 
-    <!-- Botón Volver -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnVolver"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:fontFamily="@font/font_menu"
         android:text="VOLVER"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:backgroundTint="#E45050"
+        android:background="@drawable/res_button_danger"
+        android:backgroundTint="@null"
+        android:elevation="3dp"
         android:layout_margin="16dp" />
-
 </LinearLayout>
-

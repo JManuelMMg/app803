@@ -4,17 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:paddingStart="2dp"
+    android:paddingEnd="2dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp">
 
-    <!-- CardView de la reservación -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="4dp"
-        app:cardBackgroundColor="#FAFFFFFF"
-        app:strokeColor="#DCEAF7"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="7dp"
+        app:cardBackgroundColor="#FFFFFFFF"
+        app:strokeColor="#BFD6E4"
         app:strokeWidth="1dp"
         android:clickable="true"
         android:focusable="true"
@@ -24,7 +26,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/res_card_premium"
+                android:padding="16dp">
+
+            <View
+                android:layout_width="72dp"
+                android:layout_height="4dp"
+                android:background="@drawable/res_card_topline"
+                android:layout_marginBottom="12dp" />
 
             <TextView
                 android:id="@+id/tvTipoEvento"
@@ -33,8 +48,8 @@
                 android:text="Conferencia"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="#075985"
-                android:background="@drawable/reservation_chip"
+                android:textColor="#0F766E"
+                android:background="@drawable/res_chip"
                 android:layout_marginBottom="10dp" />
 
             <TextView
@@ -44,102 +59,91 @@
                 android:text="Nombre del Evento"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#0F172A"
+                android:textColor="#12313B"
                 android:fontFamily="@font/font_menu"
                 android:layout_marginBottom="12dp" />
 
-            <!-- Contenedor de información -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvFecha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:spacing="8dp">
+                android:text="Fecha: 2026-06-15"
+                android:textSize="14sp"
+                android:textColor="#3E5265"
+                android:layout_marginBottom="5dp" />
 
-                <!-- Fecha -->
-                <TextView
-                    android:id="@+id/tvFecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha: 2026-06-15"
-                    android:textSize="14sp"
-                    android:textColor="#475569"
-                    android:layout_marginBottom="4dp" />
+            <TextView
+                android:id="@+id/tvLugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lugar: Auditorio principal"
+                android:textSize="14sp"
+                android:textColor="#3E5265"
+                android:layout_marginBottom="5dp" />
 
-                <!-- Lugar -->
-                <TextView
-                    android:id="@+id/tvLugar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Lugar del evento"
-                    android:textSize="14sp"
-                    android:textColor="#475569"
-                    android:layout_marginBottom="4dp" />
+            <TextView
+                android:id="@+id/tvUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cliente: usuario@correo.com"
+                android:textSize="13sp"
+                android:textColor="#0F766E"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp"
+                android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/tvUsuario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cliente: usuario@correo.com"
-                    android:textSize="13sp"
-                    android:textColor="#0F766E"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp"
-                    android:visibility="gone" />
+            <TextView
+                android:id="@+id/tvDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripción del evento"
+                android:textSize="13sp"
+                android:textColor="#475569"
+                android:lineSpacingExtra="2dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/res_surface_alt"
+                android:padding="10dp"
+                android:visibility="gone" />
 
-                <!-- Descripción (opcional) -->
-                <TextView
-                    android:id="@+id/tvDescripcion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Descripción del evento..."
-                    android:textSize="12sp"
-                    android:textColor="#475569"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:visibility="gone"
-                    android:background="@drawable/panel_surface"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-            <!-- Botones de acción -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="end"
-                android:spacing="8dp"
                 android:layout_marginTop="12dp">
 
-                <!-- Botón Editar (solo admin) -->
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnEditar"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:text="Editar"
+                    android:layout_height="38dp"
+                    android:text="EDITAR"
                     android:textSize="12sp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:background="@drawable/button_primary"
-                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:background="@drawable/res_button_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="#12313B"
+                    android:elevation="2dp"
                     android:visibility="gone" />
 
-                <!-- Botón Eliminar (solo admin) -->
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnEliminar"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:text="Eliminar"
+                    android:layout_height="38dp"
+                    android:text="ELIMINAR"
                     android:textSize="12sp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:background="@drawable/button_danger"
+                    android:textStyle="bold"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:background="@drawable/res_button_danger"
+                    android:backgroundTint="@null"
                     android:textColor="@android:color/white"
+                    android:elevation="2dp"
+                    android:layout_marginStart="8dp"
                     android:visibility="gone" />
             </LinearLayout>
-
+            </LinearLayout>
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
 </LinearLayout>
-

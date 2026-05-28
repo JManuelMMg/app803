@@ -39,18 +39,23 @@ class LoginResponse(BaseModel):
 
 class ReservacionBase(BaseModel):
     tipo_evento: str = "Evento general"
-    evento: str
-    fecha: date
-    lugar: str
+    # Cuando se reserva desde el catálogo, usar event_id. Si no, proveer los campos abajo.
+    event_id: int | None = None
+    evento: str | None = None
+    fecha: date | None = None
+    lugar: str | None = None
     descripcion: str | None = None
 
 
 class ReservacionCreate(ReservacionBase):
+    # Validación adicional aplicada en el router: si no se proporciona event_id,
+    # entonces 'evento', 'fecha' y 'lugar' deben enviarse.
     pass
 
 
 class ReservacionUpdate(BaseModel):
     tipo_evento: str | None = None
+    event_id: int | None = None
     evento: str | None = None
     fecha: date | None = None
     lugar: str | None = None
@@ -64,6 +69,27 @@ class Reservacion(ReservacionBase):
     usuario_correo: str | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+
+class EventoBase(BaseModel):
+    titulo: str
+    tipo_evento: str = "Evento general"
+    fecha: date
+    lugar: str
+    descripcion: str | None = None
+    capacidad: int | None = None
+
+
+class EventoCreate(EventoBase):
+    pass
+
+
+class Evento(EventoBase):
+    id: int
+    created_at: datetime | None = None
 
     model_config = ConfigDict(from_attributes=True)
 

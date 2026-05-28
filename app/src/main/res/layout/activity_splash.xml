@@ -46,13 +46,14 @@
             android:id="@+id/splash_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/font_menu"
             android:layout_marginTop="32dp"
-            android:text="@string/app_name"
+            android:text="BIENVENID@"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/md_green_700"
-            android:alpha="0"
+            android:textColor="@color/md_green_100"
+            android:alpha="1"
             android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="30dp" />
 
     </LinearLayout>
 

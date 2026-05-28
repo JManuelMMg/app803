@@ -3,7 +3,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session, joinedload
 
 from config.db import get_db
-from models.models import Reservacion, Usuario
+from models.models import Reservacion, Usuario, Evento
 from routers.auth import get_current_user, require_admin
 from schemas.schemas import (
     DashboardResponse,
@@ -11,6 +11,8 @@ from schemas.schemas import (
     ReservacionListResponse,
     Reservacion as ReservacionSchema,
     ReservacionUpdate,
+    Evento,
+    EventoCreate,
 )
 
 router = APIRouter(prefix="/api", tags=["reservaciones"])
@@ -44,11 +46,54 @@ def crear_reservacion(
     db: Session = Depends(get_db),
     current_user: Usuario = Depends(get_current_user),
 ):
-    nueva = Reservacion(**reservacion.model_dump(), usuario_id=current_user.id)
+    data = reservacion.model_dump()
+
+    # Si viene event_id, validar que exista y tomar los datos del evento
+    event_id = data.get("event_id")
+    if event_id is not None:
+        evento_obj = db.get(Evento, event_id)
+        if evento_obj is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
+        # Sobrescribimos los campos relevantes con los del catálogo para mantener consistencia
+        data["evento"] = evento_obj.titulo
+        data["tipo_evento"] = evento_obj.tipo_evento
+        data["fecha"] = evento_obj.fecha
+        data["lugar"] = evento_obj.lugar
+
+    # Si no hay event_id, requerimos los campos mínimos
+    if data.get("event_id") is None:
+        if not data.get("evento") or not data.get("fecha") or not data.get("lugar"):
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Debe proveer event_id o los campos evento, fecha y lugar")
+
+    nueva = Reservacion(**data, usuario_id=current_user.id)
     db.add(nueva)
     db.commit()
     db.refresh(nueva)
     return nueva
+
+
+# Endpoints para catálogo de eventos
+@router.get("/events", response_model=list[Evento])
+def listar_eventos_publicos(db: Session = Depends(get_db)):
+    eventos = db.query(Evento).order_by(Evento.fecha.asc()).all()
+    return eventos
+
+
+@router.post("/events", response_model=Evento, status_code=status.HTTP_201_CREATED)
+def crear_evento(evento: EventoCreate, db: Session = Depends(get_db), current_user: Usuario = Depends(require_admin)):
+    nueva = Evento(**evento.model_dump())
+    db.add(nueva)
+    db.commit()
+    db.refresh(nueva)
+    return nueva
+
+
+@router.get("/events/{event_id}", response_model=Evento)
+def obtener_evento(event_id: int, db: Session = Depends(get_db)):
+    evento = db.get(Evento, event_id)
+    if evento is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
+    return evento
 
 
 @router.get("/reservaciones/{reservacion_id}", response_model=ReservacionSchema)

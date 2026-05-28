@@ -49,7 +49,7 @@ public class SplashActivity extends AppCompatActivity {
             try {
                 duration = getResources().getInteger(R.integer.splash_duration_ms);
             } catch (Exception e) {
-                duration = 3000; // fallback a 3s para más tiempo de animación
+                duration = 4000; // fallback a 3s para más tiempo de animación
             }
 
             if (shouldSkipAnimation()) {

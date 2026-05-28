@@ -11,5 +11,6 @@
     <style name="Theme.Splash" parent="Base.Theme.AppJuan803">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowFullscreen">true</item>
+
     </style>
 </resources>

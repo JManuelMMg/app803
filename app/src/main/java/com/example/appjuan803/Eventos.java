@@ -80,8 +80,6 @@ public class Eventos extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         // Configurar valores por defecto para pruebas
-        etCorreo.setText("admin@gmail.com");
-        etPassword.setText("123456");
     }
 
     /**

@@ -177,14 +177,17 @@
             />
 
         <!-- 🔹 Botón Envío -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEnvio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="Enviar"
             android:textSize="18sp"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            app:backgroundTint="@null"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button" />
 
     </LinearLayout>
 </ScrollView>
