@@ -31,6 +31,9 @@ public class Reservacion {
     @SerializedName("descripcion")
     private String descripcion;
 
+    @SerializedName("cantidad")
+    private int cantidad = 1;
+
     @SerializedName("usuario_id")
     private int usuarioId;
 
@@ -127,6 +130,14 @@ public class Reservacion {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public int getCantidad() {
+        return cantidad <= 0 ? 1 : cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = Math.max(1, cantidad);
     }
 
     public int getUsuarioId() {

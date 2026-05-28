@@ -27,6 +27,9 @@ public class EstadisticasResponse {
     @SerializedName("ocupacion_eventos")
     private List<Map<String, Object>> ocupacionEventos;
 
+    @SerializedName("reservas_por_evento_usuario")
+    private List<Map<String, Object>> reservasPorEventoUsuario;
+
     public EstadisticasResponse() {
     }
 
@@ -76,6 +79,14 @@ public class EstadisticasResponse {
 
     public void setOcupacionEventos(List<Map<String, Object>> ocupacionEventos) {
         this.ocupacionEventos = ocupacionEventos;
+    }
+
+    public List<Map<String, Object>> getReservasPorEventoUsuario() {
+        return reservasPorEventoUsuario;
+    }
+
+    public void setReservasPorEventoUsuario(List<Map<String, Object>> reservasPorEventoUsuario) {
+        this.reservasPorEventoUsuario = reservasPorEventoUsuario;
     }
 }
 

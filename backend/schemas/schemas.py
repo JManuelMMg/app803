@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class LoginRequest(BaseModel):
@@ -45,12 +45,17 @@ class ReservacionBase(BaseModel):
     fecha: date | None = None
     lugar: str | None = None
     descripcion: str | None = None
+    cantidad: int = Field(default=1, ge=1)
 
 
 class ReservacionCreate(ReservacionBase):
     # Validación adicional aplicada en el router: si no se proporciona event_id,
     # entonces 'evento', 'fecha' y 'lugar' deben enviarse.
     pass
+
+
+class AdminReservacionCreate(ReservacionCreate):
+    usuario_id: int
 
 
 class ReservacionUpdate(BaseModel):
@@ -60,6 +65,7 @@ class ReservacionUpdate(BaseModel):
     fecha: date | None = None
     lugar: str | None = None
     descripcion: str | None = None
+    cantidad: int | None = Field(default=None, ge=1)
 
 
 class Reservacion(ReservacionBase):
@@ -117,3 +123,4 @@ class DashboardResponse(BaseModel):
     eventos_mas_populares: list[dict[str, Any]]
     lugares_mas_reservados: list[dict[str, Any]]
     ocupacion_eventos: list[dict[str, Any]]
+    reservas_por_evento_usuario: list[dict[str, Any]]

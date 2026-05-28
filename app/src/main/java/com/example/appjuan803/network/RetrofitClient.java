@@ -73,5 +73,12 @@ public class RetrofitClient {
         apiService = null;
         Log.d(TAG, "Retrofit instance reiniciado");
     }
+
+    public static String getReservacionesWebSocketUrl() {
+        if (BASE_URL.startsWith("https://")) {
+            return BASE_URL.replace("https://", "wss://") + "ws/reservaciones";
+        }
+        return BASE_URL.replace("http://", "ws://") + "ws/reservaciones";
+    }
 }
 

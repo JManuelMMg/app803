@@ -82,6 +82,12 @@ public interface ApiService {
         @Body Reservacion reservacion
     );
 
+    @POST("/api/admin/reservaciones")
+    Call<Reservacion> crearReservacionAdmin(
+        @Header("Authorization") String authorization,
+        @Body Reservacion reservacion
+    );
+
     /**
      * Catálogo público de eventos disponibles
      * GET /api/events

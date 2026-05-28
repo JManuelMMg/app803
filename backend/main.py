@@ -1,4 +1,6 @@
-from fastapi import FastAPI
+import asyncio
+
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from sqlalchemy.orm import Session
@@ -61,6 +63,15 @@ def ensure_reservacion_columns(db: Session) -> None:
             "ADD COLUMN IF NOT EXISTS evento_id INTEGER REFERENCES eventos(id)"
         ),
         (
+            "ALTER TABLE reservaciones "
+            "ADD COLUMN IF NOT EXISTS cantidad INTEGER NOT NULL DEFAULT 1"
+        ),
+        (
+            "UPDATE reservaciones "
+            "SET cantidad = 1 "
+            "WHERE cantidad IS NULL OR cantidad < 1"
+        ),
+        (
             "CREATE INDEX IF NOT EXISTS ix_reservaciones_evento_id "
             "ON reservaciones (evento_id)"
         ),
@@ -105,3 +116,14 @@ def on_startup() -> None:
 @app.get("/")
 def root():
     return {"status": "ok", "message": "API de reservaciones activa"}
+
+
+@app.websocket("/ws/reservaciones")
+async def reservaciones_socket(websocket: WebSocket):
+    await websocket.accept()
+    try:
+        while True:
+            await websocket.send_json({"type": "refresh", "resource": "reservaciones"})
+            await asyncio.sleep(10)
+    except WebSocketDisconnect:
+        return

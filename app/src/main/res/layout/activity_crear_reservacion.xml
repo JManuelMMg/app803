@@ -49,7 +49,7 @@
             android:paddingEnd="16dp"
             android:paddingTop="18dp"
             android:paddingBottom="18dp"
-            android:background="@drawable/res_panel_premium"
+            android:background="@drawable/panel_surface"
             android:elevation="10dp">
 
             <TextView
@@ -66,6 +66,33 @@
                 android:layout_height="4dp"
                 android:background="@drawable/res_card_topline"
                 android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:id="@+id/layoutUsuarioAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="14dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID de usuario para reservación manual"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#244657"
+                    android:layout_marginBottom="6dp" />
+
+                <EditText
+                    android:id="@+id/etUsuarioIdAdmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/res_input"
+                    android:hint="Ej. 2"
+                    android:inputType="number"
+                    android:padding="12dp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -104,7 +131,7 @@
                 android:inputType="textCapSentences"
                 android:padding="12dp"
                 android:textColor="#0F172A"
-                android:textColorHint="#7B8A99"
+                android:textColorHint="#A8A7A7"
                 android:layout_marginBottom="14dp" />
 
             <TextView
@@ -168,6 +195,28 @@
                 android:textColor="#0F172A"
                 android:textColorHint="#7B8A99"
                 android:inputType="textCapSentences"
+                android:layout_marginBottom="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cantidad de lugares *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#244657"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etCantidad"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="1"
+                android:text="1"
+                android:padding="12dp"
+                android:background="@drawable/res_input"
+                android:textColor="#0F172A"
+                android:textColorHint="#7B8A99"
+                android:inputType="number"
                 android:layout_marginBottom="14dp" />
 
             <TextView

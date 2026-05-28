@@ -47,6 +47,7 @@ public class DashboardActivity extends AppCompatActivity {
     private TextView tvEventosPopulares;
     private TextView tvLugaresPopulares;
     private TextView tvOcupacionEventos;
+    private TextView tvReservasPorUsuario;
     private ProgressBar progressBar;
     private Button btnVolver;
     private ScrollView scrollView;
@@ -87,6 +88,7 @@ public class DashboardActivity extends AppCompatActivity {
         tvEventosPopulares = findViewById(R.id.tvEventosPopulares);
         tvLugaresPopulares = findViewById(R.id.tvLugaresPopulares);
         tvOcupacionEventos = findViewById(R.id.tvOcupacionEventos);
+        tvReservasPorUsuario = findViewById(R.id.tvReservasPorUsuario);
         progressBar = findViewById(R.id.progressBar);
         btnVolver = findViewById(R.id.btnVolver);
         scrollView = findViewById(R.id.scrollView);
@@ -216,6 +218,19 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
         tvOcupacionEventos.setText(ocupacionBuilder.toString());
+
+        StringBuilder usuariosBuilder = new StringBuilder("Reservas por evento y usuario:\n");
+        List<Map<String, Object>> reservasUsuario = estadisticas.getReservasPorEventoUsuario();
+        if (reservasUsuario != null && !reservasUsuario.isEmpty()) {
+            for (Map<String, Object> item : reservasUsuario) {
+                usuariosBuilder.append("  - ").append(item.get("evento"))
+                        .append(" | ").append(item.get("usuario"))
+                        .append(" (").append(item.get("correo")).append(")")
+                        .append(": ").append(item.get("cantidad"))
+                        .append(" lugares\n");
+            }
+        }
+        tvReservasPorUsuario.setText(usuariosBuilder.toString());
 
         renderBarChart(barChartMeses, resPorMes, "mes", "Reservaciones por mes");
         renderPieChart(pieChartEventos, eventos, "evento");

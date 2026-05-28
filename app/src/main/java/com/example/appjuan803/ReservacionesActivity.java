@@ -3,13 +3,19 @@ package com.example.appjuan803;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.text.InputType;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +30,12 @@ import com.example.appjuan803.network.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +70,9 @@ public class ReservacionesActivity extends AppCompatActivity {
     private ApiService apiService;
     private String token;
     private String userRol;
+    private Handler refreshHandler;
+    private Runnable refreshRunnable;
+    private WebSocket reservacionesWebSocket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +98,9 @@ public class ReservacionesActivity extends AppCompatActivity {
 
         // Configurar opciones según rol
         setupRoleOptions();
+
+        startAutoRefresh();
+        startReservacionesSocket();
     }
 
     /**
@@ -289,10 +306,36 @@ public class ReservacionesActivity extends AppCompatActivity {
     }
 
     private void reservarEvento(Evento evento) {
+        EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setText("1");
+        input.setSelectAllOnFocus(true);
+        input.setHint("Cantidad de lugares");
+        input.setPadding(32, 16, 32, 16);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Reservar evento")
+                .setMessage("¿Cuántos lugares quieres reservar para \"" + evento.getTitulo() + "\"?")
+                .setView(input)
+                .setPositiveButton("Reservar", (dialog, which) -> {
+                    int cantidad = 1;
+                    try {
+                        cantidad = Integer.parseInt(input.getText().toString().trim());
+                    } catch (NumberFormatException ignored) {
+                        cantidad = 1;
+                    }
+                    crearReservaEvento(evento, Math.max(1, cantidad));
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    private void crearReservaEvento(Evento evento, int cantidad) {
         showProgress(true);
 
         Reservacion reservacion = new Reservacion();
         reservacion.setEventId(evento.getId());
+        reservacion.setCantidad(cantidad);
 
         String authorization = "Bearer " + token;
         apiService.crearReservacion(authorization, reservacion).enqueue(new Callback<Reservacion>() {
@@ -303,7 +346,7 @@ public class ReservacionesActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(
                         ReservacionesActivity.this,
-                        "Reservación creada para: " + evento.getTitulo(),
+                        "Reservación creada para: " + evento.getTitulo() + " (" + cantidad + " lugares)",
                         Toast.LENGTH_SHORT
                     ).show();
                     loadReservaciones();
@@ -331,6 +374,39 @@ public class ReservacionesActivity extends AppCompatActivity {
                     "Error de conexión al reservar: " + t.getMessage(),
                     Toast.LENGTH_LONG
                 ).show();
+            }
+        });
+    }
+
+    private void startAutoRefresh() {
+        refreshHandler = new Handler(Looper.getMainLooper());
+        refreshRunnable = () -> {
+            loadEventos();
+            loadReservaciones();
+            refreshHandler.postDelayed(refreshRunnable, 10000);
+        };
+        refreshHandler.postDelayed(refreshRunnable, 10000);
+    }
+
+    private void startReservacionesSocket() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .readTimeout(0, TimeUnit.MILLISECONDS)
+                .build();
+        Request request = new Request.Builder()
+                .url(RetrofitClient.getReservacionesWebSocketUrl())
+                .build();
+        reservacionesWebSocket = client.newWebSocket(request, new WebSocketListener() {
+            @Override
+            public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
+                runOnUiThread(() -> {
+                    loadEventos();
+                    loadReservaciones();
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, okhttp3.Response response) {
+                Log.w(TAG, "WebSocket no disponible, continúa refresco por hilo: " + t.getMessage());
             }
         });
     }
@@ -483,6 +559,17 @@ public class ReservacionesActivity extends AppCompatActivity {
         // Recargar al volver a la activity
         loadEventos();
         loadReservaciones();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (refreshHandler != null && refreshRunnable != null) {
+            refreshHandler.removeCallbacks(refreshRunnable);
+        }
+        if (reservacionesWebSocket != null) {
+            reservacionesWebSocket.close(1000, "Activity finalizada");
+        }
     }
 }
 

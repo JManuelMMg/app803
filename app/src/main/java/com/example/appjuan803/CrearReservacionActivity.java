@@ -1,10 +1,13 @@
 package com.example.appjuan803;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,6 +38,9 @@ public class CrearReservacionActivity extends AppCompatActivity {
     private EditText etFecha;
     private EditText etLugar;
     private EditText etDescripcion;
+    private EditText etCantidad;
+    private EditText etUsuarioIdAdmin;
+    private LinearLayout layoutUsuarioAdmin;
     private Spinner spTipoEvento;
     private TextView tvTituloFormulario;
     private Button btnSeleccionarFecha;
@@ -46,6 +52,7 @@ public class CrearReservacionActivity extends AppCompatActivity {
     private String fechaSeleccionada;
     private boolean editMode;
     private int reservacionId;
+    private boolean adminMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,8 @@ public class CrearReservacionActivity extends AppCompatActivity {
         token = getIntent().getStringExtra("token");
         editMode = getIntent().getBooleanExtra("edit_mode", false);
         reservacionId = getIntent().getIntExtra("reservacion_id", -1);
+        SharedPreferences prefs = getSharedPreferences("AppReservacionesPrefs", MODE_PRIVATE);
+        adminMode = "admin".equals(prefs.getString("user_rol", "normal"));
 
         // Inicializar vistas
         initializeView();
@@ -76,6 +85,9 @@ public class CrearReservacionActivity extends AppCompatActivity {
         etFecha = findViewById(R.id.etFecha);
         etLugar = findViewById(R.id.etLugar);
         etDescripcion = findViewById(R.id.etDescripcion);
+        etCantidad = findViewById(R.id.etCantidad);
+        etUsuarioIdAdmin = findViewById(R.id.etUsuarioIdAdmin);
+        layoutUsuarioAdmin = findViewById(R.id.layoutUsuarioAdmin);
         spTipoEvento = findViewById(R.id.spTipoEvento);
         tvTituloFormulario = findViewById(R.id.tvTituloFormulario);
         btnSeleccionarFecha = findViewById(R.id.btnSeleccionarFecha);
@@ -86,6 +98,7 @@ public class CrearReservacionActivity extends AppCompatActivity {
         // EditText de fecha es read-only
         etFecha.setFocusable(false);
         etFecha.setClickable(true);
+        layoutUsuarioAdmin.setVisibility(adminMode && !editMode ? View.VISIBLE : View.GONE);
     }
 
     private void loadEditDataIfNeeded() {
@@ -102,6 +115,7 @@ public class CrearReservacionActivity extends AppCompatActivity {
         etFecha.setText(fechaSeleccionada);
         etLugar.setText(getIntent().getStringExtra("lugar"));
         etDescripcion.setText(getIntent().getStringExtra("descripcion"));
+        etCantidad.setText(String.valueOf(getIntent().getIntExtra("cantidad", 1)));
     }
 
     /**
@@ -165,6 +179,10 @@ public class CrearReservacionActivity extends AppCompatActivity {
         reservacion.setFecha(fechaSeleccionada);
         reservacion.setLugar(etLugar.getText().toString().trim());
         reservacion.setDescripcion(etDescripcion.getText().toString().trim());
+        reservacion.setCantidad(Integer.parseInt(etCantidad.getText().toString().trim()));
+        if (adminMode && !editMode && !etUsuarioIdAdmin.getText().toString().trim().isEmpty()) {
+            reservacion.setUsuarioId(Integer.parseInt(etUsuarioIdAdmin.getText().toString().trim()));
+        }
 
         // Llamar API
         ApiService apiService = RetrofitClient.getApiService();
@@ -172,7 +190,9 @@ public class CrearReservacionActivity extends AppCompatActivity {
 
         Call<Reservacion> call = editMode
                 ? apiService.actualizarReservacion(authorization, reservacionId, reservacion)
-                : apiService.crearReservacion(authorization, reservacion);
+                : (adminMode && reservacion.getUsuarioId() > 0
+                    ? apiService.crearReservacionAdmin(authorization, reservacion)
+                    : apiService.crearReservacion(authorization, reservacion));
 
         call.enqueue(new Callback<Reservacion>() {
             @Override
@@ -251,6 +271,12 @@ public class CrearReservacionActivity extends AppCompatActivity {
             valido = false;
         }
 
+        String cantidad = etCantidad.getText().toString().trim();
+        if (cantidad.isEmpty() || Integer.parseInt(cantidad) < 1) {
+            etCantidad.setError("La cantidad debe ser al menos 1");
+            valido = false;
+        }
+
         return valido;
     }
 
@@ -265,6 +291,8 @@ public class CrearReservacionActivity extends AppCompatActivity {
         etFecha.setEnabled(!show);
         etLugar.setEnabled(!show);
         etDescripcion.setEnabled(!show);
+        etCantidad.setEnabled(!show);
+        etUsuarioIdAdmin.setEnabled(!show);
         spTipoEvento.setEnabled(!show);
     }
 

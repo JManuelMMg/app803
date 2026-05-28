@@ -87,6 +87,7 @@ public class ReservacionAdapter extends RecyclerView.Adapter<ReservacionAdapter.
         private TextView tvTipoEvento;
         private TextView tvFecha;
         private TextView tvLugar;
+        private TextView tvCantidad;
         private TextView tvUsuario;
         private TextView tvDescripcion;
         private Button btnEditar;
@@ -100,6 +101,7 @@ public class ReservacionAdapter extends RecyclerView.Adapter<ReservacionAdapter.
             tvTipoEvento = itemView.findViewById(R.id.tvTipoEvento);
             tvFecha = itemView.findViewById(R.id.tvFecha);
             tvLugar = itemView.findViewById(R.id.tvLugar);
+            tvCantidad = itemView.findViewById(R.id.tvCantidad);
             tvUsuario = itemView.findViewById(R.id.tvUsuario);
             tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
             btnEditar = itemView.findViewById(R.id.btnEditar);
@@ -113,6 +115,7 @@ public class ReservacionAdapter extends RecyclerView.Adapter<ReservacionAdapter.
             tvTipoEvento.setText(tipoEvento == null || tipoEvento.isEmpty() ? "Evento general" : tipoEvento);
             tvFecha.setText("Fecha: " + reservacion.getFecha());
             tvLugar.setText("Lugar: " + reservacion.getLugar());
+            tvCantidad.setText("Lugares reservados: " + reservacion.getCantidad());
 
             if ("admin".equals(userRol)) {
                 String nombre = reservacion.getUsuarioNombre();
@@ -167,6 +170,7 @@ public class ReservacionAdapter extends RecyclerView.Adapter<ReservacionAdapter.
             intent.putExtra("fecha", reservacion.getFecha());
             intent.putExtra("lugar", reservacion.getLugar());
             intent.putExtra("descripcion", reservacion.getDescripcion());
+            intent.putExtra("cantidad", reservacion.getCantidad());
             context.startActivity(intent);
         }
 

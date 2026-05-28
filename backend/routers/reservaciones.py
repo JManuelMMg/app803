@@ -8,6 +8,7 @@ from models.models import Reservacion, Usuario
 from routers.auth import get_current_user, require_admin
 from schemas.schemas import (
     DashboardResponse,
+    AdminReservacionCreate,
     ReservacionCreate,
     ReservacionListResponse,
     Reservacion as ReservacionSchema,
@@ -18,6 +19,55 @@ from schemas.schemas import (
 )
 
 router = APIRouter(prefix="/api", tags=["reservaciones"])
+
+
+def build_reservacion_data(data: dict, db: Session, usuario_id: int) -> dict:
+    event_id = data.get("event_id")
+    if event_id is not None:
+        evento_obj = db.get(EventoModel, event_id)
+        if evento_obj is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
+
+        reservacion_existente = (
+            db.query(Reservacion)
+            .filter(
+                Reservacion.evento_id == event_id,
+                Reservacion.usuario_id == usuario_id,
+            )
+            .first()
+        )
+        if reservacion_existente is not None:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="El usuario ya tiene una reservación para este evento",
+            )
+
+        if evento_obj.capacidad is not None:
+            cantidad = data.get("cantidad") or 1
+            lugares_ocupados = (
+                db.query(func.coalesce(func.sum(Reservacion.cantidad), 0))
+                .filter(Reservacion.evento_id == event_id)
+                .scalar()
+            )
+            if lugares_ocupados + cantidad > evento_obj.capacidad:
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail="El evento ya no tiene cupo disponible",
+                )
+
+        data["evento"] = evento_obj.titulo
+        data["tipo_evento"] = evento_obj.tipo_evento
+        data["fecha"] = evento_obj.fecha
+        data["lugar"] = evento_obj.lugar
+        data["evento_id"] = event_id
+        data.pop("event_id", None)
+
+    if event_id is None:
+        if not data.get("evento") or not data.get("fecha") or not data.get("lugar"):
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Debe proveer event_id o los campos evento, fecha y lugar")
+        data.pop("event_id", None)
+
+    return data
 
 
 @router.get("/reservaciones", response_model=ReservacionListResponse)
@@ -48,52 +98,29 @@ def crear_reservacion(
     db: Session = Depends(get_db),
     current_user: Usuario = Depends(get_current_user),
 ):
-    data = reservacion.model_dump()
-
-    # Si viene event_id, validar que exista y tomar los datos del evento
-    event_id = data.get("event_id")
-    if event_id is not None:
-        evento_obj = db.get(EventoModel, event_id)
-        if evento_obj is None:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Evento no encontrado")
-
-        reservacion_existente = (
-            db.query(Reservacion)
-            .filter(
-                Reservacion.evento_id == event_id,
-                Reservacion.usuario_id == current_user.id,
-            )
-            .first()
-        )
-        if reservacion_existente is not None:
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT,
-                detail="Ya tienes una reservación para este evento",
-            )
-
-        if evento_obj.capacidad is not None:
-            total_evento = db.query(Reservacion).filter(Reservacion.evento_id == event_id).count()
-            if total_evento >= evento_obj.capacidad:
-                raise HTTPException(
-                    status_code=status.HTTP_409_CONFLICT,
-                    detail="El evento ya no tiene cupo disponible",
-                )
-
-        # Sobrescribimos los campos relevantes con los del catálogo para mantener consistencia
-        data["evento"] = evento_obj.titulo
-        data["tipo_evento"] = evento_obj.tipo_evento
-        data["fecha"] = evento_obj.fecha
-        data["lugar"] = evento_obj.lugar
-        data["evento_id"] = event_id
-        data.pop("event_id", None)
-
-    # Si no hay event_id, requerimos los campos mínimos y limpiamos la clave pública.
-    if event_id is None:
-        if not data.get("evento") or not data.get("fecha") or not data.get("lugar"):
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Debe proveer event_id o los campos evento, fecha y lugar")
-        data.pop("event_id", None)
+    data = build_reservacion_data(reservacion.model_dump(), db, current_user.id)
 
     nueva = Reservacion(**data, usuario_id=current_user.id)
+    db.add(nueva)
+    db.commit()
+    db.refresh(nueva)
+    return nueva
+
+
+@router.post("/admin/reservaciones", response_model=ReservacionSchema, status_code=status.HTTP_201_CREATED)
+def crear_reservacion_admin(
+    reservacion: AdminReservacionCreate,
+    db: Session = Depends(get_db),
+    current_user: Usuario = Depends(require_admin),
+):
+    usuario = db.get(Usuario, reservacion.usuario_id)
+    if usuario is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Usuario no encontrado")
+
+    data = reservacion.model_dump()
+    usuario_id = data.pop("usuario_id")
+    data = build_reservacion_data(data, db, usuario_id)
+    nueva = Reservacion(**data, usuario_id=usuario_id)
     db.add(nueva)
     db.commit()
     db.refresh(nueva)
@@ -233,7 +260,7 @@ def dashboard(
         for row in (
             db.query(
                 func.to_char(Reservacion.fecha, "YYYY-MM").label("mes"),
-                func.count(Reservacion.id).label("cantidad"),
+                func.coalesce(func.sum(Reservacion.cantidad), 0).label("cantidad"),
             )
             .group_by("mes")
             .order_by("mes")
@@ -246,7 +273,7 @@ def dashboard(
         for row in (
             db.query(
                 Reservacion.tipo_evento,
-                func.count(Reservacion.id).label("cantidad"),
+                func.coalesce(func.sum(Reservacion.cantidad), 0).label("cantidad"),
             )
             .group_by(Reservacion.tipo_evento)
             .order_by(func.count(Reservacion.id).desc())
@@ -264,10 +291,10 @@ def dashboard(
             db.query(
                 Reservacion.evento,
                 Reservacion.tipo_evento,
-                func.count(Reservacion.id).label("cantidad"),
+                func.coalesce(func.sum(Reservacion.cantidad), 0).label("cantidad"),
             )
             .group_by(Reservacion.evento, Reservacion.tipo_evento)
-            .order_by(func.count(Reservacion.id).desc())
+            .order_by(func.coalesce(func.sum(Reservacion.cantidad), 0).desc())
             .limit(5)
             .all()
         )
@@ -276,9 +303,9 @@ def dashboard(
     lugares_mas_reservados = [
         {"lugar": row.lugar, "cantidad": row.cantidad}
         for row in (
-            db.query(Reservacion.lugar, func.count(Reservacion.id).label("cantidad"))
+            db.query(Reservacion.lugar, func.coalesce(func.sum(Reservacion.cantidad), 0).label("cantidad"))
             .group_by(Reservacion.lugar)
-            .order_by(func.count(Reservacion.id).desc())
+            .order_by(func.coalesce(func.sum(Reservacion.cantidad), 0).desc())
             .limit(5)
             .all()
         )
@@ -297,6 +324,31 @@ def dashboard(
         for item in eventos_mas_populares
     ]
 
+    reservas_por_evento_usuario = [
+        {
+            "evento": row.evento,
+            "tipo_evento": row.tipo_evento or "Evento general",
+            "usuario": row.usuario or "Usuario sin nombre",
+            "correo": row.correo or "",
+            "cantidad": row.cantidad,
+            "reservaciones": row.reservaciones,
+        }
+        for row in (
+            db.query(
+                Reservacion.evento,
+                Reservacion.tipo_evento,
+                Usuario.nombre.label("usuario"),
+                Usuario.correo.label("correo"),
+                func.coalesce(func.sum(Reservacion.cantidad), 0).label("cantidad"),
+                func.count(Reservacion.id).label("reservaciones"),
+            )
+            .outerjoin(Usuario, Usuario.id == Reservacion.usuario_id)
+            .group_by(Reservacion.evento, Reservacion.tipo_evento, Usuario.nombre, Usuario.correo)
+            .order_by(Reservacion.evento.asc(), func.coalesce(func.sum(Reservacion.cantidad), 0).desc())
+            .all()
+        )
+    ]
+
     return {
         "total_reservaciones": total_reservaciones,
         "total_usuarios": total_usuarios,
@@ -305,4 +357,5 @@ def dashboard(
         "eventos_mas_populares": eventos_mas_populares,
         "lugares_mas_reservados": lugares_mas_reservados,
         "ocupacion_eventos": ocupacion_eventos,
+        "reservas_por_evento_usuario": reservas_por_evento_usuario,
     }

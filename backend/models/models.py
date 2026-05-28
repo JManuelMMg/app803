@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from sqlalchemy import Date, DateTime, ForeignKey, String, func
+from sqlalchemy import Date, DateTime, ForeignKey, Integer, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from config.db import Base
@@ -31,6 +31,7 @@ class Reservacion(Base):
     fecha: Mapped[str] = mapped_column(Date, nullable=False)
     lugar: Mapped[str] = mapped_column(String(180), nullable=False)
     descripcion: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    cantidad: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     usuario_id: Mapped[int | None] = mapped_column(ForeignKey("usuarios.id"), nullable=True)
     # Nuevo: referencia al evento en catálogo (opcional para compatibilidad)
     evento_id: Mapped[int | None] = mapped_column(ForeignKey("eventos.id"), nullable=True, index=True)
